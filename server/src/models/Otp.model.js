@@ -20,12 +20,5 @@ const otpSchema=new Schema({
     },  
 });
 
-otpSchema.pre("save", async function(next){
-    console.log("New document saved to the database");
-    if (this.isNew) {
-        await sendVerificationEmail(this.email, this.otp);
-    }
-    next();
-});
 
 export const Otp =mongoose.model("Otp", otpSchema);

@@ -1,6 +1,10 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import styles from './Register1.module.css';
+import axios from "axios"; 
+import { registerRoute } from '../../utils/APIroutes.js';
+
+
 export const Register1 = () => {
     const [mail,setMail]=useState({
       email:"",
@@ -12,9 +16,27 @@ export const Register1 = () => {
     const handleChange=(event)=>{
       setMail({...mail, [event.target.name]:event.target.value});
     }
+    const validate=(mail)=>{
+        var regex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+        return regex.test(mail.email);
+    }
     const handleNext= async (event) =>{
       event.preventDefault();
-      console.log(mail);
+      if(!validate(mail)){
+        console.log("Invalid mail");
+      }
+      const email=mail.email;
+      const {data} = await axios.post(registerRoute,{
+        email,
+      });
+      if(data.status===false){
+        console.log(data.msg);
+      }
+      if (data.status === true) {
+        console.log("resgistered");
+        sessionStorage.setItem("email",data.email);
+        Navigate("/auth");
+      }
     }
   return (
     <>
