@@ -1,0 +1,137 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    font-family:Josefin Sans, sans-serif;
+}
+.contain{
+    display:flex;
+    height:100vh;
+}
+
+.img{
+
+    justify-content: center;
+    align-items: center;
+    size: 55%;
+    width: 55%;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.image{
+    height: 100%;
+    width:844.8px;
+    object-fit:cover;
+    opacity: 30%;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+}
+
+.logoImage{
+    width:200px;
+    opacity: 80%;
+    border-radius: 60%;
+
+}
+.card{
+    border-radius: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #D9D9D9;
+    opacity: 100%;
+    height: 550px;
+    width: 605px;
+    color: rgb(0, 0, 0);
+    text-wrap:wrap;
+}
+.form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+.intro{
+    padding:25px;
+    line-height: 1.6;
+}
+.wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 2rem;
+
+}
+.logoImage2{
+    width:300px;
+    opacity: 80%;
+    margin-top: 3rem;
+}
+.formWrapper{
+    background-color: #C1C9E6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 650px;
+    width: 425px;
+    border-radius: 60px;
+    margin-left: 140px;
+    position: relative;
+    flex-direction: column;
+}
+.loginText{
+    font-size: 2rem;
+    font-weight: bold;
+    justify-content: center;
+    gap:1rem;
+}
+.inputField1{
+    display: flex;
+    flex-direction: column;
+    padding:1rem;
+    margin-top: 3rem;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    height:3rem;
+}
+.input{
+    padding: 1rem;
+    margin: 10px;
+    border:none;
+    width: 300px;
+    height:50px;
+    border-radius: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+    text-align: center;
+}
+.lastline{
+    padding:3rem;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+}
+.loginButton{
+    padding:10px;
+    margin-top: 30px;
+    border-radius: 60px;
+    width:100px;
+    height: 50px;
+    border:none;
+}
+
+.lastText{
+    padding: 30px;
+    font-size: 15px;
+}

@@ -1,0 +1,55 @@
+.bg{
+    display: flex;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+}
+.img{
+    object-fit: cover;
+    height: 100%;
+    width:100%;
+    opacity: 45%;
+    
+}
+.logo{
+    width:300px;
+
+}
+.formWrapper{
+    position: absolute;
+    background-color: #C1C9E6;
+    border-radius:60px ;
+    width:500px;
+    height: 475px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.inputField{
+    display: flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3rem;
+    
+}
+.input{
+
+    height: 50px;
+    border-radius: 60px;
+    width: 350px;
+    margin:15px;
+    text-align: center;
+    font-size: 1rem;
+    border:none;
+}
+.submit{
+    margin-top: 2rem;
+
+}
+.button{
+    height:40px;
+    width:90px;
+    border-radius: 60px;
+    border:none;
+}
