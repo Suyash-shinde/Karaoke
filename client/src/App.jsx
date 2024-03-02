@@ -12,7 +12,7 @@ function App() {
         <Route path="/" element={<Login/>} exact />
         <Route path="/register" element={<Register1/>}/>
         <Route path="/auth" element={<Auth/>}/>
-        <Route path="/register-form" element={<Register2/>}/>
+        <Route path="/details" element={<Register2/>}/>
       </Routes>
       </BrowserRouter>
     </>

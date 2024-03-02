@@ -3,16 +3,15 @@ import { Link, useNavigate } from 'react-router-dom';
 import styles from './Register1.module.css';
 import axios from "axios"; 
 import { registerRoute } from '../../utils/APIroutes.js';
-
+import {toast, ToastContainer} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import { toastOptions } from '../../utils/ToastCss.js';
 
 export const Register1 = () => {
     const [mail,setMail]=useState({
       email:"",
     })
     const Navigate=useNavigate();
-    function handleClick(){
-        Navigate("/auth");
-    }
     const handleChange=(event)=>{
       setMail({...mail, [event.target.name]:event.target.value});
     }
@@ -20,23 +19,34 @@ export const Register1 = () => {
         var regex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
         return regex.test(mail.email);
     }
+    const handleValidation=(mail)=>{
+      if(!validate(mail)){
+        toast.error("Invalid Email", toastOptions);
+        return false;
+      }
+      else if (mail.email === "") {
+        toast.error("Email is required.", toastOptions);
+        return false;
+      }
+      return true;
+    }
     const handleNext= async (event) =>{
       event.preventDefault();
-      if(!validate(mail)){
-        console.log("Invalid mail");
-      }
-      const email=mail.email;
+      if(handleValidation(mail)){
+        const email=mail.email;
       const {data} = await axios.post(registerRoute,{
         email,
       });
       if(data.status===false){
-        console.log(data.msg);
+        toast.error(data.msg, toastOptions);
       }
       if (data.status === true) {
-        console.log("resgistered");
+        toast("regitered")
         sessionStorage.setItem("email",data.email);
         Navigate("/auth");
       }
+      }
+      
     }
   return (
     <>
@@ -59,6 +69,7 @@ export const Register1 = () => {
         </div>
       </div>
     </div>
+    <ToastContainer/>
     </>
   )
 }

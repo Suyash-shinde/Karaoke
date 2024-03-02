@@ -1,0 +1,52 @@
+.bg{
+    display: flex;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+}
+.formWrapper{
+    position: absolute;
+    background-color: #C1C9E6;
+    border-radius:60px ;
+    width:500px;
+    height: 475px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.img{
+    object-fit: cover;
+    height: 100%;
+    width:100%;
+    opacity: 45%;
+    
+}
+.logo{
+    width:300px;
+
+}
+.otpInput{
+    display: flex;
+    height: 50px;
+    margin:30px;
+}
+.inp{
+    display: flex;
+    max-width:50px;
+    height: 50px;
+    gap:1rem;
+    border-radius: 15px;
+    margin:8px;
+    text-align: center;
+    font-size: 20px;
+}
+.submit{
+    margin-top: 2rem;
+
+}
+.button{
+    height:40px;
+    width:90px;
+    border-radius: 60px;
+    border:none;
+}
