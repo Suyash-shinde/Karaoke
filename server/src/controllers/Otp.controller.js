@@ -9,14 +9,13 @@ export const generate= async(req,res,next)=>{
             lowerCaseAlphabets:false,
             specialChars:false,
         });
-        console.log(typeof(otp));
         const { email }=req.body;
         const result= await Otp.findOne({email});
         const result2= await User.findOne({email});
         if(result && result2){
             return res.json({msg:"User already exists", status:false});
         }
-       sendMailer(email,otp);
+       sendMailer(email,otp);   
         const otpCreate= await Otp.create({
             email,
             otp,

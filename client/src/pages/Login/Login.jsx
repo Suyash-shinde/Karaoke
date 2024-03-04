@@ -1,8 +1,38 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import styles from './Login.module.css'
 import {Link} from "react-router-dom"
+import {loginRoute} from "../../utils/APIroutes.js";
+import {toast, ToastContainer} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import { toastOptions } from '../../utils/ToastCss.js';
+import axios from 'axios';
 
 export const Login = () => {
+  const Navigate= useNavigate();
+  const [user,setUser]=useState({
+    username:"",
+    password:""
+  })
+  const handleChange=(e)=>{
+    setUser({...user, [e.target.name]:e.target.value});
+  }
+  const handleSubmit= async (e)=>{
+    const {username,password}=user;
+
+    const {data}=await axios.post(loginRoute,{
+      username,
+      password,
+    });
+    if(data.status===false){
+      toast.error(data.msg);
+    }
+    if(data.status===true){
+      toast(data.msg);
+      sessionStorage.clear();
+      Navigate("/home");
+    }
+  }
   return (
     <>
     <div className={styles.contain}>
@@ -34,18 +64,20 @@ export const Login = () => {
                   <input className={styles.input}
                   type='text'
                   placeholder='Username'
-                  name='userName'
+                  name='username'
+                  onChange={(e)=> handleChange(e)}
                   />
                 <input className={styles.input}
                     type='text'
                     placeholder='Password'
-                    name='Password'
+                    name='password'
+                    onChange={(e)=> handleChange(e)}
                     />
               </div>
              </div>
              <div className={styles.lastline}>
                 <div className={styles.lastButton}>
-                <button className={styles.loginButton}>Login</button>
+                <button className={styles.loginButton} onClick={(e)=>handleSubmit(e)}>Login</button>
                 </div>
                 <div className={styles.lastText}>
                 Don't have an account? <Link to="/register">Register here.</Link>
@@ -54,6 +86,7 @@ export const Login = () => {
         </div>
     </span>
     </div>
+    <ToastContainer/>
     </>
   )
 }

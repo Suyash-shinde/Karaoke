@@ -43,7 +43,7 @@ export const Auth = () => {
     }
     if (data.status === true) {
       toast("registered")
-      sessionStorage.clear();
+      
       Navigate("/details");
     }
 

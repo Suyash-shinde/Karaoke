@@ -3,6 +3,7 @@ import { Register1 } from "./pages/Register/Register1.jsx";
 import { Register2 } from "./pages/Register/Register2.jsx";
 import {  Auth } from "./pages/Register/Auth.jsx";
 import { Login } from "./pages/Login/Login.jsx";
+import { Home } from "./pages/Rooms/Home.jsx";
 function App() {
 
   return (
@@ -13,7 +14,8 @@ function App() {
         <Route path="/register" element={<Register1/>}/>
         <Route path="/auth" element={<Auth/>}/>
         <Route path="/details" element={<Register2/>}/>
-      </Routes>
+        <Route path="/home" element={<Home/>}/>
+        </Routes>
       </BrowserRouter>
     </>
   )
