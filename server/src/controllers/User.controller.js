@@ -89,42 +89,42 @@ export const login=async(req,res,next)=>{
         next(error);
     }
 };
-export const refreshAccessToken=async (req,res,next)=>{
-    const incomingRefreshToken=req.cookie.refreshToken ||  req.body.refreshToken;
-    if(!incomingRefreshToken){
-        return res.json({msg:"Unauthorized Request", status:false});
-    }
-    try{
-        const decodedToken = jwt.verify(
-            incomingRefreshToken,
-            process.env.REFRESH_TOKEN_SECRET
-            )
-        const findUser=await User.findById(decodedToken?._id);
-        if(!findUser){
-            return res.json({msg:"Invalid Refresh Token", status:false})
-        }
+// export const refreshAccessToken=async (req,res,next)=>{
+//     const incomingRefreshToken=req.cookie.refreshToken ||  req.body.refreshToken;
+//     if(!incomingRefreshToken){
+//         return res.json({msg:"Unauthorized Request", status:false});
+//     }
+//     try{
+//         const decodedToken = jwt.verify(
+//             incomingRefreshToken,
+//             process.env.REFRESH_TOKEN_SECRET
+//             )
+//         const findUser=await User.findById(decodedToken?._id);
+//         if(!findUser){
+//             return res.json({msg:"Invalid Refresh Token", status:false})
+//         }
 
-        if(incomingRefreshToken!==findUser.refreshToken){
-            return res.json({msg:"Refresh token is expired or used", status:false})
-        }
-        const options = {
-            httpOnly: true,
-            secure: true
-        }
-        const {accessToken, newRefreshToken} = await generateAccessAndRefereshTokens(user._id);
-        return res
-        .cookie("accessToken",accessToken,options)
-        .cookie("refreshToken",newRefreshToken,options)
-        .json(
-            {
-                msg:"Access Token Refreshed",
-                accessToken,
-                refreshToken: newRefreshToken,
-                status:false,
-            }
-        )
+//         if(incomingRefreshToken!==findUser.refreshToken){
+//             return res.json({msg:"Refresh token is expired or used", status:false})
+//         }
+//         const options = {
+//             httpOnly: true,
+//             secure: true
+//         }
+//         const {accessToken, newRefreshToken} = await generateAccessAndRefereshTokens(user._id);
+//         return res
+//         .cookie("accessToken",accessToken,options)
+//         .cookie("refreshToken",newRefreshToken,options)
+//         .json(
+//             {
+//                 msg:"Access Token Refreshed",
+//                 accessToken,
+//                 refreshToken: newRefreshToken,
+//                 status:true,
+//             }
+//         )
 
-    }catch(error){
-        next(error);
-    }
-}
+//     }catch(error){
+//         next(error);
+//     }
+// }
