@@ -23,7 +23,7 @@ export const Login = () => {
     const {data}=await axios.post(loginRoute,{
       username,
       password,
-    });
+    },{withCredentials:true});
     if(data.status===false){
       toast.error(data.msg);
     }

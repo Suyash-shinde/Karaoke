@@ -7,12 +7,10 @@ const generateAccessAndRefereshTokens = async(userId) =>{
         const user = await User.findById(userId)
         const accessToken = user.genereateAccessTokens()
         const refreshToken = user.genereateRefreshTokens()
-
         user.refreshToken = refreshToken
         await user.save({ validateBeforeSave: false })
 
-        return {accessToken, refreshToken}
-
+        return {accessToken, refreshToken};
 
     } catch (error) {
         console.log(error);
@@ -69,7 +67,10 @@ export const login=async(req,res,next)=>{
                 status:false,
             })
         }
-        const {accessToken,refreshToken}=generateAccessAndRefereshTokens(findUser._id);
+        const accessToken= findUser.genereateAccessTokens();
+        const refreshToken= findUser.genereateRefreshTokens();
+        findUser.refreshToken = refreshToken
+        await findUser.save({ validateBeforeSave: false })
         const options={
             httpOnly:true,
             secure:true,
@@ -93,7 +94,7 @@ export const login=async(req,res,next)=>{
 export const logout=async(req,res,next)=>{
     const incomingAccessToken=req.cookies?.accessToken;
     const decodedToken= await jwt.verify(incomingAccessToken,process.env.ACCESS_TOKEN_SECRET);
-    const user= await findById(decodedToken?._id).select("-password -refreshToken");
+    const user= await User.findById(decodedToken?._id).select("-password -refreshToken");
     if(!user){
         return res.json({
             msg:"Unauthorised request",
@@ -104,7 +105,6 @@ export const logout=async(req,res,next)=>{
     await user.save({ validateBeforeSave: false });
     
     return res
-    .status(true)
     .clearCookie("accessToken")
     .clearCookie("refreshToken")
     .json({

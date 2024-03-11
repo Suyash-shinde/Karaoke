@@ -1,5 +1,5 @@
 import React from 'react'
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 import {logoutRoute} from "../../utils/APIroutes.js"
 import {toast, ToastContainer} from "react-toastify";
@@ -8,19 +8,23 @@ import { toastOptions } from '../../utils/ToastCss.js';
 
 
 export const Home = () => {
-  const onLogout = async(e)=>{
-    const {data}=await axios.post(logoutRoute,{},{withCredentials:true});
+  const navigate=useNavigate();
+  const onLogout = async()=>{
+    const {data}=await axios.post(logoutRoute,{},{
+      withCredentials: true,
+  });
     if(data.status===false){
       toast.error(data.msg,toastOptions);
+      console.log(data.error);
     }
     else{
       toast(data.msg);
-      Navigate("/");
+      navigate("/");
     }
   }
   return (
     <>
-    <button onClick={(e)=>onLogout(e)}>Logout</button>
+    <button onClick={onLogout}>Logout</button>
     <ToastContainer/>
     </>
   )

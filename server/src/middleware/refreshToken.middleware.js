@@ -3,8 +3,10 @@ import jwt from "jsonwebtoken";
 
 export const refreshToken = async (req,res,next)=>{
     try {
-    const incomingAccessToken=req.cookies?.accessToken;
-    const incomingRefreshToken=req.cookies?.refreshToken;
+    
+    const incomingAccessToken = await req.cookies?.accessToken;
+    const incomingRefreshToken = await req.cookies?.refreshToken;
+    
     if(!incomingAccessToken && !incomingRefreshToken){
         return res.json({msg:"Login expired", status:false});
     }
@@ -40,7 +42,6 @@ export const refreshToken = async (req,res,next)=>{
             }
         )
     }
-    
     const decodedToken= jwt.verify(incomingAccessToken,process.env.ACCESS_TOKEN_SECRET);
         const user = await User.findById(decodedToken?._id).select("-password -refreshToken")
         if(!user){
@@ -52,6 +53,6 @@ export const refreshToken = async (req,res,next)=>{
         req.user=user;
         next();
     } catch (error) {
-        res.status(false).json({msg:"Invalid Token"});
+        next(error);
     }
 }
