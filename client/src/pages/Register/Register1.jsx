@@ -30,11 +30,11 @@ export const Register1 = () => {
       }
       return true;
     }
-    const handleNext= async (event) =>{
+    const handleNext = async (event) =>{
       event.preventDefault();
       if(handleValidation(mail)){
         const email=mail.email;
-      const {data} = await axios.post(registerRoute,{
+        const {data} = await axios.post(registerRoute,{
         email,
       });
       if(data.status===false){
@@ -60,7 +60,7 @@ export const Register1 = () => {
             type='text'
             placeholder='Email Address'
             name='email'
-            onChange={(e)=>handleChange(e)}
+            onChange={(event)=>handleChange(event)}
             ></input>
             Already have an account?<Link  to="/">Login.</Link>
         </div>
@@ -73,3 +73,4 @@ export const Register1 = () => {
     </>
   )
 }
+

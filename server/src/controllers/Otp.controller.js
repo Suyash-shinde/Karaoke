@@ -24,7 +24,7 @@ export const generate= async(req,res,next)=>{
             return res.json({msg:"Error in generating otp", status:false});
         }
         
-        res.json({msg:"Mail sent sucessfully", email: email, status:true});
+        return res.json({msg:"Mail sent sucessfully", email: email, status:true});
     }
     catch(error){
         next(error);

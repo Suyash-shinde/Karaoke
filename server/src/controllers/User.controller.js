@@ -5,8 +5,8 @@ import jwt from "jsonwebtoken"
 const generateAccessAndRefereshTokens = async(userId) =>{
     try {
         const user = await User.findById(userId)
-        const accessToken = user.generateAccessToken()
-        const refreshToken = user.generateRefreshToken()
+        const accessToken = user.genereateAccessTokens()
+        const refreshToken = user.genereateRefreshTokens()
 
         user.refreshToken = refreshToken
         await user.save({ validateBeforeSave: false })
@@ -15,7 +15,8 @@ const generateAccessAndRefereshTokens = async(userId) =>{
 
 
     } catch (error) {
-        throw new ApiError(500, "Something went wrong while generating referesh and access token")
+        console.log(error);
+        return error;
     }
 }
 
@@ -89,42 +90,27 @@ export const login=async(req,res,next)=>{
         next(error);
     }
 };
-// export const refreshAccessToken=async (req,res,next)=>{
-//     const incomingRefreshToken=req.cookie.refreshToken ||  req.body.refreshToken;
-//     if(!incomingRefreshToken){
-//         return res.json({msg:"Unauthorized Request", status:false});
-//     }
-//     try{
-//         const decodedToken = jwt.verify(
-//             incomingRefreshToken,
-//             process.env.REFRESH_TOKEN_SECRET
-//             )
-//         const findUser=await User.findById(decodedToken?._id);
-//         if(!findUser){
-//             return res.json({msg:"Invalid Refresh Token", status:false})
-//         }
+export const logout=async(req,res,next)=>{
+    const incomingAccessToken=req.cookies?.accessToken;
+    const decodedToken= await jwt.verify(incomingAccessToken,process.env.ACCESS_TOKEN_SECRET);
+    const user= await findById(decodedToken?._id).select("-password -refreshToken");
+    if(!user){
+        return res.json({
+            msg:"Unauthorised request",
+            status:false,
+        })
+    }
+    user.refreshToken="";
+    await user.save({ validateBeforeSave: false });
+    
+    return res
+    .status(true)
+    .clearCookie("accessToken")
+    .clearCookie("refreshToken")
+    .json({
+        msg:"User Logged Out",
+        status:true,
+        user:req.user,
+    })
 
-//         if(incomingRefreshToken!==findUser.refreshToken){
-//             return res.json({msg:"Refresh token is expired or used", status:false})
-//         }
-//         const options = {
-//             httpOnly: true,
-//             secure: true
-//         }
-//         const {accessToken, newRefreshToken} = await generateAccessAndRefereshTokens(user._id);
-//         return res
-//         .cookie("accessToken",accessToken,options)
-//         .cookie("refreshToken",newRefreshToken,options)
-//         .json(
-//             {
-//                 msg:"Access Token Refreshed",
-//                 accessToken,
-//                 refreshToken: newRefreshToken,
-//                 status:true,
-//             }
-//         )
-
-//     }catch(error){
-//         next(error);
-//     }
-// }
+}

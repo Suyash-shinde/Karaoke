@@ -1,19 +1,15 @@
-import { User } from "../models/User.model";
+import { User } from "../models/User.model.js";
 import jwt from "jsonwebtoken";
 
-export default refreshToken = async (req,res,next)=>{
+export const refreshToken = async (req,res,next)=>{
     try {
-        const incomingAccessToken=req.cookies?.accessToken;
+    const incomingAccessToken=req.cookies?.accessToken;
     const incomingRefreshToken=req.cookies?.refreshToken;
     if(!incomingAccessToken && !incomingRefreshToken){
         return res.json({msg:"Login expired", status:false});
     }
     if(!incomingAccessToken && incomingRefreshToken){
-        const{username}=req.user;
-        const findUser=await User.findOne({username});
-        if(!findUser){
-            return res.json({msg:"User not found", status:false});
-        }
+        
         const decodedRefreshtoken= jwt.verify(incomingRefreshToken,process.env.REFRESH_TOKEN_SECRET);
         const user = await User.findById(decodedRefreshtoken?._id);
         if(!user){
@@ -38,21 +34,20 @@ export default refreshToken = async (req,res,next)=>{
         .json(
             {
                 msg:"Access Token Refreshed",
-                newaccessToken,
+                accessToken:newaccessToken,
                 refreshToken: newrefreshToken,
                 status:true,
             }
         )
     }
-    const {username} = req.user;
-    const findUser = await User.findOne({username});
-    if(!findUser){
-        return res.json({msg:"Invalid User", status: false});
-    }
+    
     const decodedToken= jwt.verify(incomingAccessToken,process.env.ACCESS_TOKEN_SECRET);
         const user = await User.findById(decodedToken?._id).select("-password -refreshToken")
         if(!user){
-            throw new Error();
+            return res.json({
+                msg:"Unauthorised request",
+                status:false,
+            })
         }
         req.user=user;
         next();

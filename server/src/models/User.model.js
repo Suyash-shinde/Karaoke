@@ -26,7 +26,7 @@ const userSchema = new Schema({
     timestamps:true,
 });
 
-userSchema.methods.genereateAccessTokens()=function(){
+userSchema.methods.genereateAccessTokens=function(){
     return jwt.sign(
         {
             _id:this._id,
@@ -40,7 +40,7 @@ userSchema.methods.genereateAccessTokens()=function(){
         }
     )
 }
-userSchema.methods.genereateRefreshTokens()=function(){
+userSchema.methods.genereateRefreshTokens=function(){
     return jwt.sign(
         {
             _id:this._id,
