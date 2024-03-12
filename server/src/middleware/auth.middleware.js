@@ -1,22 +1,22 @@
 import jwt from "jsonwebtoken"
-import { User } from "../models/User.model";
+import { User } from "../models/User.model.js";
 
-const veriftjwt=async(req, res, next)=>{
+export const verifyJwt=async(req, res, next)=>{
     try {
         const token = req.cookies?.accessToken || 
         req.header("Authorizaton")?.replace("Bearer ", "");
         if(!token){
-            throw new Error();
+            return res.json({msg:"Unauthorised Request", status:false});
         }
         const decodedToken= jwt.verify(token,process.env.ACCESS_TOKEN_SECRET);
         const user = await User.findById(decodedToken?._id).select("-password -refreshToken")
         if(!user){
-            throw new Error();
+            return res.json({msg:"Invalid Access Token", status:false});
         }
         req.user=user;
         next();
 
     } catch (error) {
-        res.status(false).json({msg:"Invalid Token"});
+        res.status(405).json({msg:"Invalid Token"});
     }
 }

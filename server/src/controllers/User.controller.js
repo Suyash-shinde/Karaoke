@@ -114,3 +114,37 @@ export const logout=async(req,res,next)=>{
     })
 
 }
+
+export const refreshAccessToken=async(req,res,next)=>{
+    const incomingRefreshToken= await req.cookies?.refreshToken;
+    if(!incomingRefreshToken){
+        return res.json({msg:"Unauthorised request", status:false});
+    }
+    try {
+        const decodedToken=  jwt.verify(incomingRefreshToken,process.env.REFRESH_TOKEN_SECRET);
+        const findUser= await User.findById(decodedToken?._id);
+        if(!findUser){
+            return res.json({msg:"Invalid Refresh Token", status:false});
+        }
+        if(incomingRefreshToken!==findUser.refreshToken){
+            return res.json({msg:"Login Expired", status:false});
+        }
+        const accessToken= findUser.genereateAccessTokens();
+        const refreshToken= findUser.genereateRefreshTokens();
+        findUser.refreshToken = refreshToken
+        await findUser.save({ validateBeforeSave: false })
+        const options={
+            httpOnly:true,
+            secure:true,
+        }
+        return res
+        .status(200)
+        .cookie("accessToken", accessToken, options)
+        .cookie("refreshToken", refreshToken, options)
+        .json({
+            msg:"Access Token Refreshed",
+        })
+    } catch (error) {
+        next(error);
+    }
+}

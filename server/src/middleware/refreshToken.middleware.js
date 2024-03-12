@@ -10,6 +10,7 @@ export const refreshToken = async (req,res,next)=>{
     if(!incomingAccessToken && !incomingRefreshToken){
         return res.json({msg:"Login expired", status:false});
     }
+    console.log(incomingAccessToken);
     if(!incomingAccessToken && incomingRefreshToken){
         
         const decodedRefreshtoken= jwt.verify(incomingRefreshToken,process.env.REFRESH_TOKEN_SECRET);
