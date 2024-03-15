@@ -83,7 +83,7 @@ export const login=async(req,res,next)=>{
         .json(
             {
                 msg:"User Logged In",
-                user: loggedInUser, accessToken, refreshToken,
+                user: loggedInUser,
                 status:true,
             }
         )

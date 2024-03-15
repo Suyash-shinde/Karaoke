@@ -7,8 +7,11 @@ import {toast, ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { toastOptions } from '../../utils/ToastCss.js';
 import axios from 'axios';
+import {useDispatch} from 'react-redux';
+import {setAuth} from '../../store/authSlice.js'
 
 export const Login = () => {
+  const dispatch=useDispatch();
   const Navigate= useNavigate();
   const [user,setUser]=useState({
     username:"",
@@ -29,7 +32,7 @@ export const Login = () => {
     }
     if(data.status===true){
       toast(data.msg);
-      sessionStorage.clear();
+      dispatch(setAuth(data));
       Navigate("/home");
     }
   }

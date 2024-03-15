@@ -46,6 +46,7 @@ export const Register2 = () => {
       }
       if(data.status===true){
         toast(data.msg);
+        sessionStorage.clear();
       }
     }
   }

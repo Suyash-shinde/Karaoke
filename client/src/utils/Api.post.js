@@ -1,6 +1,6 @@
 import axios from "axios";
-import { logoutRoute } from "./APIroutes";
-import { refreshTokenRoute } from "./APIroutes";
+import {refreshTokenRoute, logoutRoute} from "./APIroutes";
+
 const api = axios.create({
     baseURL: "http://localhost:5173",
     withCredentials: true,

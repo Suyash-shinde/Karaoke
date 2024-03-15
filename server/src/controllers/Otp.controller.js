@@ -13,7 +13,9 @@ export const generate= async(req,res,next)=>{
         const result= await Otp.findOne({email});
         const result2= await User.findOne({email});
         if(result && result2){
-            return res.json({msg:"User already exists", status:false});
+            return res
+            .status(401)
+            .json({msg:"User already exists", status:false});
         }
        sendMailer(email,otp);   
         const otpCreate= await Otp.create({
@@ -21,10 +23,14 @@ export const generate= async(req,res,next)=>{
             otp,
         });
         if(!otpCreate){
-            return res.json({msg:"Error in generating otp", status:false});
+            return res
+            .status(401)
+            .json({msg:"Error in generating otp", status:false});
         }
         
-        return res.json({msg:"Mail sent sucessfully", email: email, status:true});
+        return res
+        .status(200)
+        .json({msg:"Mail sent sucessfully", email: email, status:true});
     }
     catch(error){
         next(error);
@@ -41,9 +47,13 @@ export const verify = async (req,res,next)=>{
         }
         const updated = await Otp.findOneAndUpdate({email},{otp:""});
         if(!updated){
-            return res.json({msg:"Error updating the document", status:false});
+            return res
+            .status(401)
+            .json({msg:"Error updating the document", status:false});
         }
-        return res.json({msg:"Account Createeed sucessfully", status:true});
+        return res
+        .status(200)
+        .json({msg:"Account Created sucessfully", status:true});
     } catch (error) {
         next(error);
     }
