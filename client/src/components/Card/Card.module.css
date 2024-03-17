@@ -1,0 +1,22 @@
+.card{
+    border-radius: 60px;
+    background: #C1C9E6;
+    height: 25vh;
+    width: 25vh;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+
+}
+.title{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+    padding: 1rem;
+}
+.owner{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
