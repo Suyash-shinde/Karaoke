@@ -14,6 +14,7 @@ export const RoomPage = () => {
     useEffect(()=>{
       const fetchRoom=async()=>{
         const {data} = await getRoom(roomId);
+        console.log(data);
         setRoom((prev)=>data);
       };
       fetchRoom();
@@ -23,9 +24,9 @@ export const RoomPage = () => {
       <div>
         {clients?.map((client)=>{
           return(
-            <div key={client._id}>
+            <div key={client.id}>
               <audio 
-                ref={(instance)=>provideRef(instance,client._id)}
+                ref={(instance)=>provideRef(instance,client.id)}
                 controls
                 autoPlay></audio>
                 <h4>{client.username}</h4>

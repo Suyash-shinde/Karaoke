@@ -45,7 +45,14 @@ export const getAllRooms=async(req,res,next)=>{
 export const fetchData=async(req,res,next)=>{
     try {
         const room = await Rooms.findById(req.params.roomId);
-        return res.json(room);
+        const send_room={
+            id:room._id,
+            title:room.title,
+            type:room.type,
+            owner:room.owner,
+
+        }
+        return res.json(send_room);
     } catch (error) {
         next(error);
     }

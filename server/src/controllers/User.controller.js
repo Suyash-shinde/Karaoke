@@ -77,13 +77,20 @@ export const login=async(req,res,next)=>{
         }
         delete findUser.password;
         const loggedInUser = await User.findById(findUser._id).select("-password -refreshToken")
+        const send_user={
+            id:loggedInUser._id,
+            username:loggedInUser.username,
+            email:loggedInUser.email,
+            createdAt:loggedInUser.createdAt,
+            updatedAt:loggedInUser.updatedAt,
+        }
         return res
         .cookie("accessToken",accessToken,options)
         .cookie("refreshToken", refreshToken, options)
         .json(
             {
                 msg:"User Logged In",
-                user: loggedInUser,
+                user: send_user,
                 status:true,
             }
         )
