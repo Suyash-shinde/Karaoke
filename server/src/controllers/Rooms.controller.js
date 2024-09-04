@@ -11,7 +11,7 @@ export const addRoom = async(req,res,next)=>{
         }
         const newRoom = await Rooms.create({
             title,
-            owner:user._id,
+            owner:user.id,
             type,
         })
         if(!newRoom){

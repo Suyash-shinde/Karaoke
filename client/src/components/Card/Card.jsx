@@ -11,6 +11,9 @@ export const Card = ({room}) => {
           }}
          className={styles.card}>
           <div className={styles.title}>{room.title}</div>
+          <div className={styles.imgContainer}>
+            <img src='/src/assets/chat.png' className={styles.img}></img>
+          </div>
           <div className={styles.owner}>{room.owner.username}</div>
         </div>
     </>

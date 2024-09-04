@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import styles from './CreateRoom.module.css';
+import styles from './JoinRoom.module.css';
 import { createRoom } from '../../utils/Api.post';
 import {useSelector} from 'react-redux';
 import {toast, ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { toastOptions } from '../../utils/ToastCss.js';
-export const CreateRoom = ({onClose,onrefresh}) => {
-    const [type,setType]=useState('open');
+export const JoinRoom = ({onClose,onrefresh}) => {
     const [title,setTitle]=useState('');
     const user = useSelector((state) => state.auth.user);
     const validate=()=>{
@@ -34,7 +33,7 @@ export const CreateRoom = ({onClose,onrefresh}) => {
         }
     }
   return (
-    <div className={styles.mask}>
+    <div className={styles.mask} >
         <div className={styles.body}>
             <div className={styles.close}>
                 <button className={styles.closeButton} onClick={onClose}>X</button>
@@ -48,23 +47,6 @@ export const CreateRoom = ({onClose,onrefresh}) => {
                 name='title'
                 onChange={(e) => setTitle(e.target.value)}>
                 </input>
-                <h4> Room Type</h4>
-                <div className={styles.type}>
-                    <div 
-                        onClick={()=>setType('open')}
-                        className={`${styles.typeBox} ${
-                            type==='open' ? styles.active : ''
-                        }`}>
-                        <span>Open</span>
-                    </div>
-                    <div 
-                        onClick={()=>setType('private')}
-                        className={`${styles.typeBox} ${
-                            type==='private' ? styles.active : ''
-                        }`}>
-                        <span>Private</span>
-                    </div>
-                </div>
             </div>
             <div className={styles.footer}>
                 <div className={styles.submit}>

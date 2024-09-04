@@ -6,6 +6,8 @@ import { Login } from "./pages/Login/Login.jsx";
 import { Home } from "./pages/Rooms/Home.jsx";
 import { RoomPage } from "./pages/RoomPage/RoomPage.jsx";
 import {useSelector} from 'react-redux';
+import Profile from "./pages/Profile/Profile.jsx";
+import Avatar from "./pages/Avatar/Avatar.jsx";
 function App() {
 
   return (
@@ -19,6 +21,8 @@ function App() {
         <Route element={<ProtectedRoute/>}>
         <Route path="/home" element={<Home/>}/>
         <Route path="/room/:id" element={<RoomPage/>}/>
+        <Route path="/profile" element={<Profile/>}/>
+        <Route path="/avatar" element={<Avatar/>}/>
         </Route>
         </Routes>
       </BrowserRouter>

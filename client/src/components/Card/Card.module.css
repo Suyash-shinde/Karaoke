@@ -1,22 +1,35 @@
 .card{
     border-radius: 60px;
-    background: #C1C9E6;
-    height: 25vh;
-    width: 25vh;
+    background: #7e95e8;
+    height: 15rem;
+    width: 15rem;
     display: flex;
     flex-direction: column;
-    padding: 1rem;
 
 }
 .title{
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 1rem;
     padding: 1rem;
+    border-radius: 60px 60px 0px  0px;
+    background-color: #6679bd;
+    color: white;
+    font-size: 18px;
+}
+.imgContainer{
+    border-radius: 90px;
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.img{
+    height:100%;
 }
 .owner{
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 18px;
 }

@@ -10,7 +10,7 @@ export const RoomPage = () => {
     const navigate= useNavigate();
 
     const {clients, provideRef}=useWebRTC(roomId,user);
-
+  
     useEffect(()=>{
       const fetchRoom=async()=>{
         const {data} = await getRoom(roomId);
@@ -35,6 +35,7 @@ export const RoomPage = () => {
           
         })}
       </div>
+      <button >Leave</button>
     </div>
   )
 }

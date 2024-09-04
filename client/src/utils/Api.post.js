@@ -3,14 +3,15 @@ import {refreshTokenRoute,
      logoutRoute,
      createRoomRoute,
      getRoomsRoute,
-    fetchRoomRoute} from "./APIroutes";
+    fetchRoomRoute,
+    avatarRoute} from "./APIroutes";
 
 const api = axios.create({
     baseURL: "http://localhost:5173",
     withCredentials: true,
     headers: {
         'Content-type': 'application/json',
-        Accept: 'application/json',
+        Accept: 'application/json', 
     },
 });
 
@@ -18,6 +19,7 @@ export const logout = ()=> api.post(logoutRoute);
 export const createRoom=(data)=>api.post(createRoomRoute,data);
 export const getAllRooms=()=>api.get(getRoomsRoute);
 export const getRoom=(roomId)=>api.get(`${fetchRoomRoute}/${roomId}`);
+export const changeAvatar=(avatar)=>api.post(avatarRoute,avatar);
 api.interceptors.response.use(
     (config)=>{
         return config;

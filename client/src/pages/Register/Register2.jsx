@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+      import React, { useState } from 'react';
 import styles from './Register2.module.css';
 import {toast, ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';

@@ -1,6 +1,7 @@
 import bcrypt from "bcrypt";
 import {User} from "../models/User.model.js"
 import jwt from "jsonwebtoken"
+import { cloudUpload } from "../utils/cloudinary.js";
 
 const generateAccessAndRefereshTokens = async(userId) =>{
     try {
@@ -20,7 +21,7 @@ const generateAccessAndRefereshTokens = async(userId) =>{
 
 export const register= async (req,res,next)=>{
     try {
-        const {username,email,password} = req.body;
+        const {username,email,password} = req.body;         
         const findUser = await User.findOne({username});
         if(findUser){
             return res.json({
@@ -85,8 +86,8 @@ export const login=async(req,res,next)=>{
             updatedAt:loggedInUser.updatedAt,
         }
         return res
-        .cookie("accessToken",accessToken,options)
-        .cookie("refreshToken", refreshToken, options)
+                .cookie("accessToken",accessToken,options)
+                .cookie("refreshToken", refreshToken, options)
         .json(
             {
                 msg:"User Logged In",
@@ -143,14 +144,45 @@ export const refreshAccessToken=async(req,res,next)=>{
         const options={
             httpOnly:true,
             secure:true,
-        }
+        }                   
         return res
         .status(200)
         .cookie("accessToken", accessToken, options)
         .cookie("refreshToken", refreshToken, options)
         .json({
             msg:"Access Token Refreshed",
-        })
+        })                                      
+    } catch (error) {
+        next(error);
+    }
+}
+
+export const uploadAvatar =async(req,res,next)=>{
+    try {
+        const avatarPath = req.file?.path;
+        if(!avatarPath){
+            return res.json({
+                msg:"No file found",
+                status:false,
+            })
+        }
+        const avatar = await cloudUpload(avatarPath);
+        if(!avatar.url){
+            return res.json({
+                msg:"Error in uploading the image",
+                status:false,
+            })
+        }
+        const user = await  User.findByIdAndUpdate(
+            req.body?.id,
+            {$set:{avatar:avatar.url}},
+            {new:true}
+            ).select("-password");
+            return res.json({
+                msg:"Avatar updated succesfully",
+                status:true,
+                user,
+            });
     } catch (error) {
         next(error);
     }

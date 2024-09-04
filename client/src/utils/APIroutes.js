@@ -8,3 +8,4 @@ export const refreshTokenRoute=`${host}/refresh`;
 export const createRoomRoute=`${host}/create`;
 export const getRoomsRoute=`${host}/getAllRooms`;
 export const fetchRoomRoute=`${host}/room`;
+export const avatarRoute=`${host}/addAvatar`;

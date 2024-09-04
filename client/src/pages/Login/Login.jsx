@@ -43,7 +43,7 @@ export const Login = () => {
         <img src="/src/assets/bg.jpg" alt="bg" className={styles.image}/>
         <img src="/src/assets/karaless.png" className={styles.logoImage}></img>
         <div className={styles.card}>
-          <h1>
+          <h1 className={styles.header}>
           "Where Every Voice Finds Its Stage!"
           </h1>
           <p className={styles.intro}>
@@ -68,7 +68,7 @@ export const Login = () => {
                   type='text'
                   placeholder='Username'
                   name='username'
-                  onChange={(e)=> handleChange(e)}
+                  onChange={(e)=> handleChange(e)}    
                   />
                 <input className={styles.input}
                     type='text'
