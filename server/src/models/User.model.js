@@ -20,6 +20,7 @@ const userSchema = new Schema({
     },
     avatar:{
         type:String,
+        default:process.env.DEFAULT_PFP,
     },
     refreshToken:{
         type:String,

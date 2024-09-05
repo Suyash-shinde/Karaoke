@@ -5,6 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { toastOptions } from '../../utils/ToastCss.js';
 import {detailsRoute} from '../../utils/APIroutes.js';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 export const Register2 = () => {
   const [user,setUser]=useState({
@@ -13,6 +14,7 @@ export const Register2 = () => {
     password:"",
     confimPassword:""
   })
+  const Navigate = useNavigate();
   const handleChange=(event)=>{
     setUser({...user, [event.target.name]:event.target.value});
   }
@@ -47,6 +49,7 @@ export const Register2 = () => {
       if(data.status===true){
         toast(data.msg);
         sessionStorage.clear();
+        Navigate("/home")
       }
     }
   }

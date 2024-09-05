@@ -2,7 +2,10 @@ import bcrypt from "bcrypt";
 import {User} from "../models/User.model.js"
 import jwt from "jsonwebtoken"
 import { cloudUpload } from "../utils/cloudinary.js";
-
+const options={
+    httpOnly:true,
+    secure:true,
+}
 const generateAccessAndRefereshTokens = async(userId) =>{
     try {
         const user = await User.findById(userId)
@@ -29,21 +32,34 @@ export const register= async (req,res,next)=>{
                 status:false
             });
         }
+        const accessToken= findUser.genereateAccessTokens();
+        const refreshToken= findUser.genereateRefreshTokens();
         const hashedPassword = bcrypt.hashSync(password,10);
         const newUser = await User.create({
             username,
             email,
             password:hashedPassword,
+            refreshToken,
         })
         if(!newUser){
-            return res.json({
+            return res
+            .json({
                 msg:"Error creating new user, please try again.",
-                status:false
+                status:false,
             })
         }
         delete newUser.password;
-
-        return res.json({msg: "New User Created", status: true});
+        const refinduser = await findOne({username}).select("-password -refreshToken");
+        const user={
+            id:refinduser._id,
+            avatar:refinduser.avatar,
+            username:refinduser.username,
+            email:refinduser.email,
+        }
+        return res
+        .cookie("accessToken",accessToken,options)
+        .cookie("refreshToken", refreshToken, options)
+        .json({msg: "New User Created", status: true, user:user});
 
     } catch (error) {
         next(error);
@@ -72,18 +88,14 @@ export const login=async(req,res,next)=>{
         const refreshToken= findUser.genereateRefreshTokens();
         findUser.refreshToken = refreshToken
         await findUser.save({ validateBeforeSave: false })
-        const options={
-            httpOnly:true,
-            secure:true,
-        }
+       
         delete findUser.password;
         const loggedInUser = await User.findById(findUser._id).select("-password -refreshToken")
         const send_user={
             id:loggedInUser._id,
             username:loggedInUser.username,
             email:loggedInUser.email,
-            createdAt:loggedInUser.createdAt,
-            updatedAt:loggedInUser.updatedAt,
+            avatar:loggedInUser.avatar,
         }
         return res
                 .cookie("accessToken",accessToken,options)
@@ -166,6 +178,7 @@ export const uploadAvatar =async(req,res,next)=>{
                 status:false,
             })
         }
+
         const avatar = await cloudUpload(avatarPath);
         if(!avatar.url){
             return res.json({
@@ -173,11 +186,17 @@ export const uploadAvatar =async(req,res,next)=>{
                 status:false,
             })
         }
-        const user = await  User.findByIdAndUpdate(
+        const setUser = await  User.findByIdAndUpdate(
             req.body?.id,
             {$set:{avatar:avatar.url}},
             {new:true}
             ).select("-password");
+            const user={
+                id:setUser._id,
+                username:setUser.username,
+                email:setUser.email,
+                avatar:setUser.avatar,
+            }
             return res.json({
                 msg:"Avatar updated succesfully",
                 status:true,

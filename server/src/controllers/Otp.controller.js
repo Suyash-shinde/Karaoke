@@ -14,7 +14,6 @@ export const generate= async(req,res,next)=>{
         const result2= await User.findOne({email});
         if(result && result2){
             return res
-            .status(401)
             .json({msg:"User already exists", status:false});
         }
        sendMailer(email,otp);   
@@ -24,12 +23,10 @@ export const generate= async(req,res,next)=>{
         });
         if(!otpCreate){
             return res
-            .status(401)
             .json({msg:"Error in generating otp", status:false});
         }
         
         return res
-        .status(200)
         .json({msg:"Mail sent sucessfully", email: email, status:true});
     }
     catch(error){
