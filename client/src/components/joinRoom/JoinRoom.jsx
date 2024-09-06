@@ -1,31 +1,31 @@
 import React, { useEffect, useState } from 'react'
 import styles from './JoinRoom.module.css';
-import { createRoom } from '../../utils/Api.post';
+import { createRoom, joinRoomPost } from '../../utils/Api.post';
 import {useSelector} from 'react-redux';
 import {toast, ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { toastOptions } from '../../utils/ToastCss.js';
+import { useNavigate } from 'react-router-dom';
 export const JoinRoom = ({onClose,onrefresh}) => {
     const [title,setTitle]=useState('');
     const user = useSelector((state) => state.auth.user);
+    const Navigate = useNavigate();
     const validate=()=>{
-        if(title===''){
-            toast.error("Room Name should be more than 3 characters");
+        if(title.length()<6){
+            toast.error("Room Code should be 6 characters");
             return false;
         }
         return true;
     }
-    const createNewRoom = async()=>{
+    const joinNewRoom = async()=>{
         if(validate){
-            const {data} = await createRoom({
-                title,
-                type,
-                user,
-            })
+            const {data} = await joinRoomPost({
+                code:title
+            });
             if(data.status===true){
                 toast(data.msg);
                 onClose();
-                onrefresh();
+                Navigate(`/room/${data.room._id}`);
             }
             else{
                 toast(data.msg);
@@ -40,7 +40,7 @@ export const JoinRoom = ({onClose,onrefresh}) => {
             </div>
             <div className={styles.header}>
                 <h3 className={styles.heading}>
-                            Enter Room Name
+                            Enter Room Code
                 </h3>
                 <input className={styles.title}
                 placeholder='Room Name'
@@ -50,7 +50,7 @@ export const JoinRoom = ({onClose,onrefresh}) => {
             </div>
             <div className={styles.footer}>
                 <div className={styles.submit}>
-                    <button className={styles.submitButton} onClick={createNewRoom}>Create</button>
+                    <button className={styles.submitButton} onClick={joinNewRoom}>Create</button>
                 </div>
             </div>
         </div>

@@ -13,6 +13,10 @@ const roomSchema = new Schema({
     owner:{
         type: Schema.Types.ObjectId,
         ref:'User'
+    },
+    code:{
+        type:Number,
+        unique:true,
     }
 },
 {

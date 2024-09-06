@@ -5,10 +5,12 @@ import {useSelector} from 'react-redux';
 import {toast, ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { toastOptions } from '../../utils/ToastCss.js';
+import { useNavigate } from 'react-router-dom';
 export const CreateRoom = ({onClose,onrefresh}) => {
     const [type,setType]=useState('open');
     const [title,setTitle]=useState('');
     const user = useSelector((state) => state.auth.user);
+    const Navigate = useNavigate();
     const validate=()=>{
         if(title===''){
             toast.error("Room Name should be more than 3 characters");
@@ -26,7 +28,7 @@ export const CreateRoom = ({onClose,onrefresh}) => {
             if(data.status===true){
                 toast(data.msg);
                 onClose();
-                onrefresh();
+                Navigate(`/room/${data.room._id}`);
             }
             else{
                 toast(data.msg);

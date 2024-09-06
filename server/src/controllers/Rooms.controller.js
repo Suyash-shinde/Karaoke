@@ -1,4 +1,5 @@
 import { Rooms } from "../models/Rooms.model.js";
+import otpGenerator from "otp-generator"
 export const addRoom = async(req,res,next)=>{
     try {
         const {title,type,user} = req.body;
@@ -9,10 +10,23 @@ export const addRoom = async(req,res,next)=>{
                      status:false,
                     });
         }
+        var code;
+        while(true){
+            code=await otpGenerator.generate(6,{
+                upperCaseAlphabets:false,
+                lowerCaseAlphabets:false,
+                specialChars:false,
+            });
+            const findCode=await Rooms.findOne({code});
+            if(!findCode){
+                break;
+            }
+        }
         const newRoom = await Rooms.create({
             title,
             owner:user.id,
             type,
+            code,
         })
         if(!newRoom){
             return res.json({msg:"Error creating a room", status:false});
@@ -56,4 +70,26 @@ export const fetchData=async(req,res,next)=>{
     } catch (error) {
         next(error);
     }
+}
+
+export const joinRoom = async(req,res,next)=>{
+    const {code} = req.body;
+    if(!code){
+        return res.json({
+            msg:"Enter Code",
+            status:false,
+        })
+    }
+    const findRoom = await Rooms.findOne({code});
+    if(!findRoom){
+        return res.json({
+            msg:"No active rooms with this code",
+            status:false,
+        })
+    }
+    return res.json({
+        msg:"Room found successfully",
+        status:true,
+        room:findRoom,
+    })
 }

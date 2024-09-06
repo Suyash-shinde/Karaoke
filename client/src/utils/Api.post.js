@@ -4,7 +4,8 @@ import {refreshTokenRoute,
      createRoomRoute,
      getRoomsRoute,
     fetchRoomRoute,
-    avatarRoute} from "./APIroutes";
+    avatarRoute,
+    joinRoomRoute} from "./APIroutes";
 
 const api = axios.create({
     baseURL: "http://localhost:5173",
@@ -20,6 +21,7 @@ export const createRoom=(data)=>api.post(createRoomRoute,data);
 export const getAllRooms=()=>api.get(getRoomsRoute);
 export const getRoom=(roomId)=>api.get(`${fetchRoomRoute}/${roomId}`);
 export const changeAvatar=(avatar)=>api.post(avatarRoute,avatar);
+export const joinRoomPost = (data)=>api.post(joinRoomRoute,data);
 api.interceptors.response.use(
     (config)=>{
         return config;

@@ -6,7 +6,7 @@ import { login } from "../controllers/User.controller.js";
 import {verifyJwt} from "../middleware/auth.middleware.js";
 import { logout } from "../controllers/User.controller.js";
 import { refreshAccessToken } from "../controllers/User.controller.js";
-import { addRoom,getAllRooms,fetchData} from "../controllers/Rooms.controller.js";
+import { addRoom,getAllRooms,fetchData, joinRoom} from "../controllers/Rooms.controller.js";
 import { upload } from "../middleware/multer.middleware.js";
 const router= Router();
 router.route("/register").post(generate);
@@ -19,4 +19,5 @@ router.route("/create").post(verifyJwt,addRoom);
 router.route("/getAllRooms").get(verifyJwt,getAllRooms);
 router.route("/room/:roomId").get(verifyJwt, fetchData);
 router.route("/addAvatar").post(upload.single('avatar'),uploadAvatar);
+router.route("/joinRoom").post(verifyJwt,joinRoom)
 export default router;
