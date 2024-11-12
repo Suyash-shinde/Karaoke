@@ -1,12 +1,12 @@
 import { Router } from "express";
 import { verify } from "../controllers/Otp.controller.js";
 import { generate } from "../controllers/Otp.controller.js";
-import {register, uploadAvatar } from "../controllers/User.controller.js";
+import {register, updateUser, uploadAvatar } from "../controllers/User.controller.js";
 import { login } from "../controllers/User.controller.js";
 import {verifyJwt} from "../middleware/auth.middleware.js";
 import { logout } from "../controllers/User.controller.js";
 import { refreshAccessToken } from "../controllers/User.controller.js";
-import { addRoom,getAllRooms,fetchData, joinRoom} from "../controllers/Rooms.controller.js";
+import { addRoom,getAllRooms,fetchData, joinRoom, deleteRoom} from "../controllers/Rooms.controller.js";
 import { upload } from "../middleware/multer.middleware.js";
 const router= Router();
 router.route("/register").post(generate);
@@ -20,4 +20,7 @@ router.route("/getAllRooms").get(verifyJwt,getAllRooms);
 router.route("/room/:roomId").get(verifyJwt, fetchData);
 router.route("/addAvatar").post(upload.single('avatar'),uploadAvatar);
 router.route("/joinRoom").post(verifyJwt,joinRoom)
+router.route("/updateUser").post(verifyJwt,updateUser);
+router.route("/test").get(()=>{console.log("Testing")});
+router.route("/deleteRoom").post(verifyJwt,deleteRoom);
 export default router;

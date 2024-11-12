@@ -49,7 +49,7 @@ export const Register2 = () => {
       if(data.status===true){
         toast(data.msg);
         sessionStorage.clear();
-        Navigate("/home")
+        Navigate("/home",{state:{leaving:false}})
       }
     }
   }

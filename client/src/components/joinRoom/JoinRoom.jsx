@@ -25,7 +25,8 @@ export const JoinRoom = ({onClose,onrefresh}) => {
             if(data.status===true){
                 toast(data.msg);
                 onClose();
-                Navigate(`/room/${data.room._id}`);
+
+                Navigate(`/room/${data.room._id}`,{state:{isOwner:false,room:data.room}});
             }
             else{
                 toast(data.msg);

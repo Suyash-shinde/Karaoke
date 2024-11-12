@@ -3,5 +3,7 @@ export const toastOptions = {
     autoClose: 8000,
     pauseOnHover: true,
     draggable: true,
-    theme: "light",
+    theme: "dark",
+    className: "toast-message",
+
   };

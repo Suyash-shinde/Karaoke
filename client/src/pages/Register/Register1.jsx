@@ -62,7 +62,7 @@ export const Register1 = () => {
             name='email'
             onChange={(event)=>handleChange(event)}
             ></input>
-            Already have an account?<Link  to="/">Login.</Link>
+            Already have an account?<Link  to="/" style={{color:"white"}}>Login.</Link>
         </div>
         <div className={styles.submit}>
             <button className={styles.button} onClick={(event)=> handleNext(event)}>Next</button>

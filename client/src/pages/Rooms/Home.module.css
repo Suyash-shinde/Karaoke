@@ -1,87 +1,171 @@
-.bg{
-    height:100vh;
+.bg {
+	height: 100vh;
+    width: 100%;
+    margin:0;
+    padding:0;
+	background-image: radial-gradient(
+        at 100% 10%,
+		rgb(200, 78, 221) 10% ,
+
+        rgb(130, 24, 180) 50%,
+		rgb(15, 0, 70) 80%
+	);
+	background-attachment: fixed;
+	background-size: cover;
+    top:0;
+	z-index: -1;
+	position: absolute;
 }
+.bgImg{
+	height: 100vh;
+    width: 100%;
+    margin:0;
+    padding:0;
+    position:fixed;
+	background-attachment: fixed;
+	background-size: cover;
+    top:0;
+	z-index: -1;
+	position: absolute;
+}
+.roomList {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 20px;
+	margin-top: 60px;
+	margin-left: 2%;
+	margin-right: 2%;
+}
+
+.topContainer {
+	width: 100%;
+	margin: 1%;
+	display: flex;
+	justify-content: center;
+    margin-top:6rem;
+}
+
+.buttons {
+	display: flex;
+}
+
+.create {
+	border-radius: 60px;
+	background-color: rgb(60, 9, 108);
+	padding: 10px;
+	color: white;
+	font-size: 15px;
+	margin-left: 10px;
+	border: none;
+}
+
+.create:hover {
+	background-color: rgb(36, 0, 70);
+	cursor: pointer;
+}
+
+.join {
+	border-radius: 60px;
+	background-color: rgb(60,9,108);
+	padding: 10px;
+	color: white;
+	font-size: 15px;
+	border: none;
+	margin-left: 10px;
+}
+
+.join:hover {
+	background-color: rgb(36, 0, 70);
+	cursor: pointer;
+}
+
+.searchBox {
+	border-radius: 60px;
+	width: fit-content;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+       background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(40px);
+   border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 80px rgba(0, 0, 0, 0.3);;
+    color: white;
+
+    -webkit-backdrop-filter: blur(5px);
+}
+
+.search {
+	border: none;
+	border-radius: 60px;
+	height: 2.7rem;
+	padding-left: 10px;
+	outline: none;
+	font-size: 18px;
+	background-color: transparent;
+    color:white;
+}
+.search::placeholder{
+    color:white;
+}
+.search::-webkit-input-placeholder{
+    color:white;
+}
+
+.search:focus::placeholder {
+	color: transparent;
+}
+
+.searchSubmit {
+	height: 20px;
+	margin-right: 8px;
+	margin-left: 5px;
+}
+
+.searchSubmit:hover {
+	cursor: pointer;
+	opacity: 50%;
+}
+.emptyContainer{
+	font-size: 25px;
+	display: flex;
+	flex-direction: column;
+	border-radius: 60px;
+	height: 12rem;
+	width: 90vw;
+	display: flex;
+justify-content:center;
+	align-items: center;
+	margin: 1rem;
+	background: rgba(255, 255, 255, 0.1);
+	backdrop-filter: blur(18px);
+	border: 2px solid rgba(255, 255, 255, 0.1);
+	box-shadow: 0 0 80px rgba(0, 0, 0, 0.3);
+	color: white;
+
+	-webkit-backdrop-filter: blur(5px);
+}
+
+.empty{
+    color:white;
+    font-size:30px;
+}
+@media (max-width: 600px) {
+	.topContainer {
+		flex-direction: column;
+		align-items: center;
+		margin-top: 5%;
+	}
+
+	.buttons {
+		margin-top: 3%;
+	}
 .roomList{
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-    margin-top: 60px;
-    margin-left:2%;
-    margin-right:2%;
+
+	grid-template-columns: repeat(2, 1fr);
+}
 }
 
-.topContainer{
-    width:100%;
-    margin:1%;
-    display: flex;
-    justify-content: center;
-}
-.buttons{
-    display:flex;
 
-}
-.create{
-    border-radius: 60px;
-    background-color:rgb(8, 139, 247);
-    padding:10px;   
-    color: white;
-    font-size: 15px;
-    margin-left:10px;
-}
-.create:hover{
-    background-color: rgb(9, 117, 205);
-    cursor: pointer;
-}
-.join{
-    border-radius: 60px;
-    background-color:rgb(0, 204, 34);
-    padding:10px;   
-    color: white;
-    font-size: 15px;
-    margin-left: 10px;
-}
-.join:hover{
-    background-color: rgb(1, 173, 30);
-    cursor: pointer;
-}
-.searchBox{
-    border-radius: 60px;
-    box-shadow: 0px 4px 10px 2px gray;
-    width:fit-content; 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.search{
-  border:none;
-  border-radius: 60px;
-  height: 2rem;
-  padding-left: 10px;
-  outline:none;
-  font-size: 18px;
-}
 
-.search:focus::placeholder{
-    color:transparent;
-}
-.searchSubmit{
-    height: 20px;
-    margin-right: 8px;
-    margin-left: 5px;
-}
-.searchSubmit:hover{
-    cursor: pointer;
-}
 
-@media(max-width:600px){
-    .topContainer{
-        flex-direction: column;
-        align-items: center;
-        margin-top: 5%;
-    }
-    .buttons{
-        margin-top: 3%;
-    }
-    
-    
-}
+

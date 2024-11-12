@@ -8,6 +8,7 @@ import { RoomPage } from "./pages/RoomPage/RoomPage.jsx";
 import {useSelector} from 'react-redux';
 import Profile from "./pages/Profile/Profile.jsx";
 import Avatar from "./pages/Avatar/Avatar.jsx";
+import RoomLoading from "./pages/RoomPage/RoomLoading.jsx";
 function App() {
 
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/room/:id" element={<RoomPage/>}/>
         <Route path="/profile" element={<Profile/>}/>
         <Route path="/avatar" element={<Avatar/>}/>
+        <Route path="/roomloading" element={<RoomLoading/>}/>
         </Route>
         </Routes>
       </BrowserRouter>

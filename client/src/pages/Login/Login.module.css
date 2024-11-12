@@ -10,9 +10,25 @@
     display:flex;
     height:100vh;
     width:100%;
+	background-image: radial-gradient(
+        at 100% 10%,
+		rgb(200, 78, 221) 10% ,
+
+        rgb(130, 24, 180) 50%,
+		rgb(15, 0, 70) 80%
+	);
+   
 
 }
+.toast-message{
+          background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+   border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 80px rgba(0, 0, 0, 0.3);
+    -webkit-backdrop-filter: blur(5px);
+    color:white;
 
+}
 .img{
 
     justify-content: center;
@@ -22,7 +38,7 @@
     min-height: 100%;
     display: flex;
     flex-direction: column;
-
+    z-index:1;
     
 }
 
@@ -55,6 +71,11 @@
     color: rgb(0, 0, 0);
     text-wrap:wrap;
     flex-wrap: wrap;
+      background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+   border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 80px rgba(0, 0, 0, 0.3);
+    -webkit-backdrop-filter: blur(5px);
 }
 
 .form{
@@ -80,7 +101,6 @@
     margin-top: 3rem;
 }
 .formWrapper{
-    background-color: #C1C9E6;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -91,6 +111,12 @@
     margin-right: 100%;
     position: relative;
     flex-direction: column;
+      background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+   border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 80px rgba(0, 0, 0, 0.3);
+    -webkit-backdrop-filter: blur(5px);
+    color:white;
 }
 .loginText{
     font-size: 2rem;
@@ -107,6 +133,8 @@
     justify-content: center;
     align-items: center;
     height:3rem;
+
+
 }
 .header{
     margin-left: 5%;
@@ -115,7 +143,6 @@
 .input{
     padding: 1rem;
     margin: 10px;
-    border:none;
     width: 300px;
     height:50px;
     border-radius: 60px;
@@ -124,6 +151,18 @@
     align-items: center;
     font-size: 1rem;
     text-align: center;
+      background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+   border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 80px rgba(0, 0, 0, 0.3);
+    -webkit-backdrop-filter: blur(5px);
+    color:white;
+}
+.input::placeholder{
+    color:white;
+}
+.input::-webkit-input-placeholder{
+    color:white;
 }
 .lastline{
     padding:3rem;
@@ -139,18 +178,41 @@
     width:100px;
     height: 50px;
     border:none;
+      background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+   border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 80px rgba(0, 0, 0, 0.3);
+    -webkit-backdrop-filter: blur(5px);
+    color:white;
+
+}
+.loginButton:hover{
+    cursor:pointer;
 }
 
 .lastText{
     padding: 30px;
     font-size: 15px;
+    color:white;
 }
 
-@media(max-width: 900px){
-    
+@media(max-width: 600px){
+    .input{
+        width:10rem;
+        height:1rem;
+        }
     .contain{
         flex-direction: row;
         flex-wrap: wrap;
+	background-image: radial-gradient(
+        at 100% 10%,
+		rgb(200, 78, 221) 10% ,
+
+        rgb(130, 24, 180) 50%,
+		rgb(15, 0, 70) 80%
+
+	);
+        height: 100%;
     }
     .formWrapper{
         width: 90%;
@@ -162,11 +224,13 @@
     }
     .image{
         width:100%;
-        height: 100vh;
+        height: 100%;
+        position:absolute;
     }
     .card{
         width:90%;
         flex-wrap: wrap;
+        height:80vh;
     }
     .header{
         margin-left: 5%;

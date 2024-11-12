@@ -28,7 +28,8 @@ export const CreateRoom = ({onClose,onrefresh}) => {
             if(data.status===true){
                 toast(data.msg);
                 onClose();
-                Navigate(`/room/${data.room._id}`);
+                    
+                Navigate(`/room/${data.room._id}`,{state:{room:data.room, isOwner:true}});
             }
             else{
                 toast(data.msg);
