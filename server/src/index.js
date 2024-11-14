@@ -15,13 +15,13 @@ const port = process.env.PORT;
 app.use(cookieParser());
 const io = new Server(server, {
     cors: {
-        origin: "http://localhost:5173",
+        origin: "https://karaoke-frontend.onrender.com",
         methods: ["GET", "POST"],
     },
 });
 const corsOption = {
     credentials: true,
-    origin: "http://localhost:5173",
+    origin: "https://karaoke-frontend.onrender.com",
 };
 
 app.use(cors(corsOption));
@@ -159,5 +159,5 @@ io.on("connection", (socket) => {
 });
 
 server.listen(port, () => {
-    console.log(`App is listening on port: http://localhost:${port}`);
+    console.log(`App is listening on port: https://karaoke-backend.onrender.com`);
 });

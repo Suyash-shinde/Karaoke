@@ -9,13 +9,13 @@ import { toastOptions } from "../../utils/ToastCss.js";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { setAuth } from "../../store/authSlice.js";
-
+import logo from "../../assets/karaless.png"
 export const Login = () => {
     const dispatch = useDispatch();
     const Navigate = useNavigate();
     const [user, setUser] = useState({
         username: "",
-        password: "",
+        password: "",``
     });
     const handleChange = (e) => {
         setUser({ ...user, [e.target.name]: e.target.value });
@@ -47,9 +47,9 @@ export const Login = () => {
         <>
             <div className={styles.contain}>
                 <span className={styles.img}>
-                    <img src="/src/assets/bg.jpg" alt="bg" className={styles.image} />
+                    <img src="./src/assets/bg.jpg" alt="bg" className={styles.image} />
                     <img
-                        src="/src/assets/karaless.png"
+                        src={logo}
                         className={styles.logoImage}
                     ></img>
                     <div className={styles.card}>
