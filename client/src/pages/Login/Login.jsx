@@ -15,7 +15,7 @@ export const Login = () => {
     const Navigate = useNavigate();
     const [user, setUser] = useState({
         username: "",
-        password: "",``
+        password: "",
     });
     const handleChange = (e) => {
         setUser({ ...user, [e.target.name]: e.target.value });
