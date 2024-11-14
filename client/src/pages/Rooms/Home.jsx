@@ -13,6 +13,7 @@ import { useDispatch } from "react-redux";
 import { unsetAuth } from "../../store/authSlice.js";
 import Navbar from "../../components/navbar/Navbar.jsx";
 import { JoinRoom } from "../../components/joinRoom/JoinRoom.jsx";
+import searchIcon from "../../assets/seach.png";
 export const Home = () => {
     const [showCreate, setShowCreate] = useState(false);
     const [showJoin, setShowJoin] = useState(false);
@@ -88,7 +89,7 @@ export const Home = () => {
                             onChange={(e) => handleChange(e)}
                         ></input>
                         <img
-                            src="/src/assets/search.png"
+                            src={searchIcon}
                             className={styles.searchSubmit}
                             onClick={search}
                         ></img>

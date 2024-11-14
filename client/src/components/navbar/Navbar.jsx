@@ -3,6 +3,7 @@ import styles from "./Navbar.module.css";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
+import logo from "../../assets/karaless.png";
 const Navbar = ({ logout }) => {
 	const navigate = useNavigate();
 	const user = useSelector((state) => state.auth.user);
@@ -19,7 +20,7 @@ const Navbar = ({ logout }) => {
 		<>
 			<nav className={styles.container}>
 				<img
-					src="/src/assets/karaless.png"
+					src={logo}
 					onClick={() => {
 						navigate("/home", {state:{leaving:false}});
 					}}

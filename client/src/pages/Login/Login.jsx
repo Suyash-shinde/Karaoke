@@ -10,6 +10,7 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { setAuth } from "../../store/authSlice.js";
 import logo from "../../assets/karaless.png"
+import bg from "../../assets/bg.jpg";
 export const Login = () => {
     const dispatch = useDispatch();
     const Navigate = useNavigate();
@@ -47,7 +48,7 @@ export const Login = () => {
         <>
             <div className={styles.contain}>
                 <span className={styles.img}>
-                    <img src="./src/assets/bg.jpg" alt="bg" className={styles.image} />
+                    <img src={bg} alt="bg" className={styles.image} />
                     <img
                         src={logo}
                         className={styles.logoImage}
@@ -70,7 +71,7 @@ export const Login = () => {
                 <span className={styles.form}>
                     <div className={styles.formWrapper}>
                         <img
-                            src="/client/src/assets/karaless.png"
+                            src={logo}
                             className={styles.logoImage2}
                         ></img>
                         <div className={styles.wrapper}>

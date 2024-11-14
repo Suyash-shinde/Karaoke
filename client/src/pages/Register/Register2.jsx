@@ -7,6 +7,8 @@ import {detailsRoute} from '../../utils/APIroutes.js';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
+import bg from "../../assets/bg.jpg";
+import logo from "../../assets/karaless.png";
 export const Register2 = () => {
   const [user,setUser]=useState({
     username:"",
@@ -56,9 +58,9 @@ export const Register2 = () => {
   return (
     <>
     <div className={styles.bg}>
-      <img src="/src/assets/bg.jpg" className={styles.img}></img>
+      <img src={bg} className={styles.img}></img>
       <div className={styles.formWrapper}>
-        <img src="/src/assets/karaless.png" className={styles.logo}></img>
+        <img src={logo} className={styles.logo}></img>
         <div className={styles.input}>
           <input className={styles.inp}
           type='text'

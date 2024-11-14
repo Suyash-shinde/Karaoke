@@ -6,7 +6,8 @@ import { registerRoute } from '../../utils/APIroutes.js';
 import {toast, ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { toastOptions } from '../../utils/ToastCss.js';
-
+import bg from "../../assets/bg.jpg";
+import logo from "../../assets/karaless.png";
 export const Register1 = () => {
     const [mail,setMail]=useState({
       email:"",
@@ -51,9 +52,9 @@ export const Register1 = () => {
   return (
     <>
      <div className={styles.bg}>
-      <img src="/src/assets/bg.jpg" className={styles.img}></img>
+      <img src={bg} className={styles.img}></img>
       <div className={styles.formWrapper}>
-        <img src="/src/assets/karaless.png" className={styles.logo}></img>
+        <img src={logo} className={styles.logo}></img>
         <div className={styles.inputField}>
             Enter Your Email Address.
             <input className={styles.input}

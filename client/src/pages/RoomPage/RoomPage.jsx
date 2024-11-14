@@ -7,6 +7,13 @@ import styles from "./RoomPage.module.css";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { toastOptions } from "../../utils/ToastCss.js";
+import Aplayer from "../../assets/player.jpg";
+import mic from "../../assets/mic.png";
+import mute from "../../assets/mute.png";
+import phone from "../../assets/phone.png";
+import f505 from "../../assets/505.mp3"
+import matsuri from "../../assets/matsuri.mp3";
+import test from "../../assets/test.mp3";
 export const RoomPage = React.memo(() => {
     const location = useLocation();
     const room = location.state.room;
@@ -80,7 +87,7 @@ export const RoomPage = React.memo(() => {
                             className={client.owner ? styles.owner : styles.client}
                         >
                             <img
-                                src={client.avatar ? client.avatar : "/src/assets/player.jpg"}
+                                src={client.avatar ? client.avatar : {Aplayer}}
                                 className={styles.img}
                             ></img>
                             <audio
@@ -96,13 +103,13 @@ export const RoomPage = React.memo(() => {
                 <div className={styles.controls}>
                     <div className={styles.buttonContainer} onClick={clickMute}>
                         <img
-                            src={isMute ? "/src/assets/mic.png" : "/src/assets/mute.png"}
+                            src={isMute ? {mic} : {mute}}
                             className={styles.controlButtons}
                         ></img>
                     </div>
                     <div className={styles.buttonContainerEnd} onClick={handleLeave}>
                         <img
-                            src={"/src/assets/phone.png"}
+                            src={phone}
                             className={styles.controlButtons}
                         ></img>
                     </div>
@@ -132,7 +139,7 @@ export const RoomPage = React.memo(() => {
                             <div
                                 className={styles.element}
                                 onClick={() => {
-                                    addSong("/src/assets/505.mp3");
+                                    addSong({f505});
                                 }}
                             >
                                 505 - Arctic Monkeys
@@ -140,7 +147,7 @@ export const RoomPage = React.memo(() => {
                             <div
                                 className={styles.element}
                                 onClick={() => {
-                                    addSong("/src/assets/Matsuri.mp3");
+                                    addSong({matsuri});
                                 }}
                             >
                                 Matsuri - Fuji Kaze
@@ -148,7 +155,7 @@ export const RoomPage = React.memo(() => {
                             <div
                                 className={styles.element}
                                 onClick={() => {
-                                    addSong("/src/assets/test.mp3");
+                                    addSong({test});
                                 }}
                             >
                                 Test
