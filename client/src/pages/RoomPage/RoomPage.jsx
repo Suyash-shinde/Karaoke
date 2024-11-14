@@ -12,7 +12,7 @@ import mic from "../../assets/mic.png";
 import mute from "../../assets/mute.png";
 import phone from "../../assets/phone.png";
 import f505 from "../../assets/505.mp3"
-import matsuri from "../../assets/matsuri.mp3";
+import matsuri from "../../assets/Matsuri.mp3";
 import test from "../../assets/test.mp3";
 export const RoomPage = React.memo(() => {
     const location = useLocation();

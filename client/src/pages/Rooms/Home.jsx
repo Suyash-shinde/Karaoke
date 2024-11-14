@@ -13,7 +13,7 @@ import { useDispatch } from "react-redux";
 import { unsetAuth } from "../../store/authSlice.js";
 import Navbar from "../../components/navbar/Navbar.jsx";
 import { JoinRoom } from "../../components/joinRoom/JoinRoom.jsx";
-import searchIcon from "../../assets/seach.png";
+import searchIcon from "../../assets/search.png";
 export const Home = () => {
     const [showCreate, setShowCreate] = useState(false);
     const [showJoin, setShowJoin] = useState(false);
