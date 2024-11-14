@@ -282,22 +282,46 @@
 
 }
 
-@media (max-width: 900px) {
+@media (max-width: 500px) {
     .layout {
         grid-template-columns: repeat(2, 5%);
+        margin:1rem;
+        column-gap:11rem;
     }
 
     .client {
-        height: 15rem;
-        width: 15rem;
+        height: 10rem;
+        width: 10rem;
     }
-
+.owner{
+    height:10rem;
+        width:10rem;
+    }
     .img {
-        height: 8rem;
-        width: 8 rem;
+        height: 7rem;
+        width: 7rem;
     }
 
     .name {
         font-size: 20px;
+        margin-top:0.6rem;
+    }
+    .code{
+        margin-bottom:8rem;
+        font-size:20px;
+        width:90vw;
+
+        }
+    .closeModal{
+        margin-right:6rem;
+    }
+    .modal{
+        width:90vw;
+    }
+    .headingName{
+        width:90vw;
+    }
+    .element{
+        width:89vw;
     }
 }

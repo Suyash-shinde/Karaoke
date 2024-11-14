@@ -90,3 +90,12 @@
 .button:hover{
     cursor:pointer;
 }
+
+@media(max-width:500px){
+    .formWrapper{
+        width:90vw;
+    }
+    .inp{
+        width:90%;
+    }
+}

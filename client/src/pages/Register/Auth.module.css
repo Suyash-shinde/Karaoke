@@ -98,8 +98,14 @@
 .button:hover{
     cursor:pointer;
 }
-@media (max-width: 900px) {
-	.formwrapper {
-		width: 300px;
+@media (max-width: 500px) {
+	.formWrapper {
+        width:90vw;
 	}
+    .inp{
+        gap:0.4rem;
+        margin:3px;
+        width:3rem;
+        height:3rem;
+    }
 }

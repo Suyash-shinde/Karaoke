@@ -100,7 +100,7 @@
 
     background: rgba(39, 39, 39, 0.5);
 }
-@media(max-width:900px){
+@media(max-width:500px){
   .body{
         width:90%;
             height: 40%;

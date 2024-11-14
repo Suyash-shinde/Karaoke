@@ -16,7 +16,7 @@
     width:50%;
     max-width: 500px;
     border-radius: 60px;
-    height:70vh;
+    height:70rem;
     display: flex;
     flex-direction: column;
     padding:1%;
@@ -49,8 +49,6 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 1rem;
-    margin-top: 10%;
     color:white;
 }
 .title{
@@ -123,7 +121,7 @@
     background: rgba(39, 39, 39, 0.5);
 }
 
-@media(max-width: 900px){
+@media(max-width: 500px){
     .typeBox{
         height:5rem;
         width:5rem;

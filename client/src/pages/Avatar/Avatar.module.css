@@ -144,3 +144,17 @@
 
     background: rgba(39, 39, 39, 0.5);
 }
+
+@media(max-width:500px){
+    .field{
+        width:95vw;
+        }
+    .currentContainer{
+        margin:0rem;
+        font-size:20px;
+    }
+    .current{
+        height:9rem;
+        width:9rem;
+    }
+}

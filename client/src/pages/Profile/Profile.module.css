@@ -29,7 +29,7 @@
 	flex-direction: column;
 	border-radius: 60px;
 	height: 12rem;
-	width: 95vh;
+	width: 95%;
 	display: flex;
 
 	align-items: center;
@@ -49,7 +49,7 @@
 	flex-direction: column;
 	border-radius: 60px;
 	height: 33rem;
-	width: 100vh;
+	width: 70vw;
 	display: flex;
 	background: rgba(255, 255, 255, 0.1);
 	backdrop-filter: blur(18px);
@@ -64,7 +64,6 @@
 }
 
 .Inp {
-	border: none;
 	border-radius: 60px;
 	height: 2.7rem;
 	padding-left: 10px;
@@ -81,12 +80,14 @@
 	-webkit-backdrop-filter: blur(5px);
 }
 
-.Inp::placeholder{
-    color:white;
+.Inp::placeholder {
+	color: white;
 }
-.Inp::-webkit-input-placeholder{
-    color:white;
+
+.Inp::-webkit-input-placeholder {
+	color: white;
 }
+
 .header {
 	margin: 1rem;
 	color: white;
@@ -114,7 +115,7 @@
 	flex-direction: column;
 	border-radius: 60px;
 	height: 12rem;
-	width: 100vh;
+	width: 70vw;
 	display: flex;
 	background: rgba(255, 255, 255, 0.1);
 	backdrop-filter: blur(18px);
@@ -155,4 +156,33 @@
 	background: rgba(39, 39, 39, 0.5);
 }
 
+@media (max-width: 500px) {
+	.field {
+		width: 90%;
+		height: 10rem;
+		font-size: 20px;
+	}
 
+	.fieldContainer {
+		width: 80vw;
+		margin: 0;
+	}
+
+	.avatar {
+		width: 70%;
+		height: 3rem;
+		font-size: 20px;
+	}
+
+	.avatarField {
+		width: 80vw;
+        margin:0rem;
+		font-size: 20px;
+
+        margin-top:1rem;
+	}
+
+	.Inp {
+		width: 90%;
+	}
+}
