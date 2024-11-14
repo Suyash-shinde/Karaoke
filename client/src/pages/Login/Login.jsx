@@ -70,7 +70,7 @@ export const Login = () => {
                 <span className={styles.form}>
                     <div className={styles.formWrapper}>
                         <img
-                            src="/src/assets/karaless.png"
+                            src="/client/src/assets/karaless.png"
                             className={styles.logoImage2}
                         ></img>
                         <div className={styles.wrapper}>
