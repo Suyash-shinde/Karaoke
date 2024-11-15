@@ -5,6 +5,8 @@ import { cloudUpload } from "../utils/cloudinary.js";
 const options = {
     httpOnly: true,
     secure: true,
+    sameSite:"none",
+
 };
 const generateAccessAndRefereshTokens = async (userId) => {
     try {
