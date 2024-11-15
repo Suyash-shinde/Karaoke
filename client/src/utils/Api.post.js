@@ -12,7 +12,7 @@ import {
 } from "./APIroutes";
 
 const api = axios.create({
-	baseURL: "https://karaoke-frontend.onrender.com",
+	baseURL: "https://karaoke-backend.onrender.com",
 	withCredentials: true,
 	headers: {
 		"Content-type": "application/json",
