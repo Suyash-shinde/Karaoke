@@ -7,12 +7,12 @@ import styles from "./RoomPage.module.css";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { toastOptions } from "../../utils/ToastCss.js";
-import Aplayer from "../../assets/player.jpg";
+import player from "../../assets/player.jpg";
 import mic from "../../assets/mic.png";
 import mute from "../../assets/mute.png";
 import phone from "../../assets/phone.png";
 import f505 from "../../assets/505.mp3"
-import matsuri from "../../assets/Matsuri.mp3";
+import Matsuri from "../../assets/Matsuri.mp3";
 import test from "../../assets/test.mp3";
 export const RoomPage = React.memo(() => {
     const location = useLocation();
@@ -87,7 +87,7 @@ export const RoomPage = React.memo(() => {
                             className={client.owner ? styles.owner : styles.client}
                         >
                             <img
-                                src={client.avatar ? client.avatar : {Aplayer}}
+                                src={client.avatar ? client.avatar : "https://console.cloudinary.com/pm/c-54b1816b41278e464c1d3abbb330e8/media-explorer?assetId=89aaf81608f927482d24e38251ef7618"}
                                 className={styles.img}
                             ></img>
                             <audio
@@ -103,7 +103,7 @@ export const RoomPage = React.memo(() => {
                 <div className={styles.controls}>
                     <div className={styles.buttonContainer} onClick={clickMute}>
                         <img
-                            src={isMute ? {mic} : {mute}}
+                            src={isMute ? "https://console.cloudinary.com/pm/c-54b1816b41278e464c1d3abbb330e8/media-explorer?assetId=d6befcb9c91e0c116ef260889b38def5" : "https://console.cloudinary.com/pm/c-54b1816b41278e464c1d3abbb330e8/media-explorer?assetId=9d2ecd84d4f816d3d3644b09cd6bbcad"}
                             className={styles.controlButtons}
                         ></img>
                     </div>
@@ -147,7 +147,7 @@ export const RoomPage = React.memo(() => {
                             <div
                                 className={styles.element}
                                 onClick={() => {
-                                    addSong({matsuri});
+                                    addSong({Matsuri});
                                 }}
                             >
                                 Matsuri - Fuji Kaze
