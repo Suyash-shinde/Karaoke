@@ -102,8 +102,9 @@ export const RoomPage = React.memo(() => {
             <div className={styles.bottom}>
                 <div className={styles.controls}>
                     <div className={styles.buttonContainer} onClick={clickMute}>
+
                         <img
-                            src={isMute ? "https://res.cloudinary.com/dmcsfqgch/image/upload/v1731612281/gah4srnaq7sjv1hoysfv.png" : "https://res.cloudinary.com/dmcsfqgch/image/upload/v1731612281/b7elowdn09jdzhdtzcrn.png"}
+                            src={isMute ? "https://res.cloudinary.com/dmcsfqgch/image/upload/v1731612281/b7elowdn09jdzhdtzcrn.png" : "https://res.cloudinary.com/dmcsfqgch/image/upload/v1731612281/gah4srnaq7sjv1hoysfv.png"}
                             className={styles.controlButtons}
                         ></img>
                     </div>
