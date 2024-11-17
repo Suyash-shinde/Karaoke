@@ -269,7 +269,7 @@ export const useWebRTC = (roomId, user, owner) => {
                 {
                     urls: "turn:openrelay.metered.ca:80",
                     username: "openrelayproject",
-                    credentials: "openrelayproject",
+                    credential: "openrelayproject",
                 },
             ];
             connections.current[peerId] = new RTCPeerConnection({
