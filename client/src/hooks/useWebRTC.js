@@ -267,7 +267,7 @@ export const useWebRTC = (roomId, user, owner) => {
             const iceServers = [
                 ...freeice(),
                 {
-                    urls: "relay1.expressturn.com:3478",
+                    urls: "turn:relay1.expressturn.com:3478",
                     username: "efRP4CLC6TNZZ0JZ74",
                     credential: "1N0fOLTsrfVihnyN",
                 },
