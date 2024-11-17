@@ -139,7 +139,7 @@ export const RoomPage = React.memo(() => {
                             <div
                                 className={styles.element}
                                 onClick={() => {
-                                    addSong({f505});
+                                    addSong('/src/assets/505.mp3');
                                 }}
                             >
                                 505 - Arctic Monkeys
@@ -147,7 +147,7 @@ export const RoomPage = React.memo(() => {
                             <div
                                 className={styles.element}
                                 onClick={() => {
-                                    addSong({Matsuri});
+                                    addSong('/src/assets/Matsuri.mp3');
                                 }}
                             >
                                 Matsuri - Fuji Kaze
@@ -155,7 +155,7 @@ export const RoomPage = React.memo(() => {
                             <div
                                 className={styles.element}
                                 onClick={() => {
-                                    addSong({test});
+                                    addSong('/src/assets/test.mp3');
                                 }}
                             >
                                 Test
