@@ -87,7 +87,7 @@ export const RoomPage = React.memo(() => {
                             className={client.owner ? styles.owner : styles.client}
                         >
                             <img
-                                src={client.avatar ? client.avatar : "https://console.cloudinary.com/pm/c-54b1816b41278e464c1d3abbb330e8/media-explorer?assetId=89aaf81608f927482d24e38251ef7618"}
+                                src={client.avatar ? client.avatar : "https://res.cloudinary.com/dmcsfqgch/image/upload/v1731612281/rr7aq5ievbsnza9lhv0d.jpg"}
                                 className={styles.img}
                             ></img>
                             <audio
@@ -103,7 +103,7 @@ export const RoomPage = React.memo(() => {
                 <div className={styles.controls}>
                     <div className={styles.buttonContainer} onClick={clickMute}>
                         <img
-                            src={isMute ? "https://console.cloudinary.com/pm/c-54b1816b41278e464c1d3abbb330e8/media-explorer?assetId=d6befcb9c91e0c116ef260889b38def5" : "https://console.cloudinary.com/pm/c-54b1816b41278e464c1d3abbb330e8/media-explorer?assetId=9d2ecd84d4f816d3d3644b09cd6bbcad"}
+                            src={isMute ? "https://res.cloudinary.com/dmcsfqgch/image/upload/v1731612281/gah4srnaq7sjv1hoysfv.png" : "https://res.cloudinary.com/dmcsfqgch/image/upload/v1731612281/b7elowdn09jdzhdtzcrn.png"}
                             className={styles.controlButtons}
                         ></img>
                     </div>
@@ -147,7 +147,7 @@ export const RoomPage = React.memo(() => {
                             <div
                                 className={styles.element}
                                 onClick={() => {
-                                    addSong('/src/assets/Matsuri.mp3');
+                                    addSong('https://res.cloudinary.com/dmcsfqgch/video/upload/v1731863848/songs/sa49faxx58l82kmrrhkt.mp3');
                                 }}
                             >
                                 Matsuri - Fuji Kaze
@@ -155,7 +155,7 @@ export const RoomPage = React.memo(() => {
                             <div
                                 className={styles.element}
                                 onClick={() => {
-                                    addSong('/src/assets/test.mp3');
+                                    addSong('https://res.cloudinary.com/dmcsfqgch/video/upload/v1731863847/songs/hr3kyyskjkmuz6yutbfi.mp3');
                                 }}
                             >
                                 Test
