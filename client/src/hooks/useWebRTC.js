@@ -96,6 +96,9 @@ export const useWebRTC = (roomId, user, owner) => {
 
 	const createAudioStream = () => {
 		// Create MediaStream from the audio element if it hasn’t been initialized
+        
+        audioElement.current.crossOrigin = 'anonymous';
+
 		if (!audioStream.current) {
 			const source = audioContext.current.createMediaElementSource(
 				audioElement.current,
