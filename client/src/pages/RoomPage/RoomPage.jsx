@@ -139,7 +139,7 @@ export const RoomPage = React.memo(() => {
                             <div
                                 className={styles.element}
                                 onClick={() => {
-                                    addSong('/src/assets/505.mp3');
+                                    addSong('https://console.cloudinary.com/pm/c-54b1816b41278e464c1d3abbb330e8/media-explorer/songs?assetId=57e33841e07d4605b4bc7bdc9daeb3e1');
                                 }}
                             >
                                 505 - Arctic Monkeys
