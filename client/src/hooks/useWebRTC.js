@@ -85,6 +85,14 @@ export const useWebRTC = (roomId, user, owner) => {
 			playNextSong({ song: songQueue[0], first: false });
 		}
 	};
+    audioElement.current.onerror = (e) => {
+    console.error("Audio load error:", e);
+};
+
+    audioElement.current.addEventListener('canplaythrough', () => {
+    audioElement.current.play();
+});
+
 
 	const createAudioStream = () => {
 		// Create MediaStream from the audio element if it hasn’t been initialized
