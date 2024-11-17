@@ -267,9 +267,9 @@ export const useWebRTC = (roomId, user, owner) => {
             const iceServers = [
                 ...freeice(),
                 {
-                    urls: "turn:relay.metered.ca:80",
-                    username: "open",
-                    credential: "open",
+                    urls: "turn:openrelay.metered.ca:80",
+                    username: "openrelayproject",
+                    credentials: "openrelayproject",
                 },
             ];
             connections.current[peerId] = new RTCPeerConnection({
