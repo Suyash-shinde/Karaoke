@@ -305,8 +305,6 @@ export const useWebRTC = (roomId, user, owner) => {
 					if (remoteUser.id === "audioplayer") {
 						if (audioElements.current["audio-player"]) {
 							audioElements.current["audio-player"].srcObject = remoteStream;
-                            audioStream.current=remoteStream;
-                            audioElement.current.src=remoteStream;
 							console.log("remoteStream 1", remoteStream);
 						} else {
 							let settled = false;
@@ -351,48 +349,7 @@ export const useWebRTC = (roomId, user, owner) => {
 				localMediaStream.current.getTracks(),
 			);
 			// Add connection to peer connections track
-			if (remoteUser.id === "audioplayer") {
-				// Assign the audio stream to the audio player
-				if (audioStream.current) {
-					audioStream.current.getTracks().forEach((track) => {
-						const existingSenders = connections.current[peerId].getSenders();
-						const trackAlreadyAdded = existingSenders.some(
-							(sender) => sender.track === track,
-						);
-
-						if (!trackAlreadyAdded) {
-							connections.current[peerId].addTrack(track, audioStream.current);
-							console.log("Stream Added 3");
-						}
-					});
-				} else {
-					let settled = false;
-					const interval = setInterval(() => {
-						if (audioStream.current) {
-							audioStream.current.getTracks().forEach((track) => {
-								const existingSenders =
-									connections.current[peerId].getSenders();
-								const trackAlreadyAdded = existingSenders.some(
-									(sender) => sender.track === track,
-								);
-
-								if (!trackAlreadyAdded) {
-									connections.current[peerId].addTrack(
-										track,
-										audioStream.current,
-									);
-									console.log("Stream added 4");
-								}
-								settled = true;
-							});
-						}
-
-						if (settled) {
-							clearInterval(interval);
-						}
-					}, 300);
-				}
-			} else {
+		
 				if (localMediaStream.current) {
 					localMediaStream.current.getTracks().forEach((track) => {
 						const existingSenders = connections.current[peerId].getSenders();
@@ -436,7 +393,6 @@ export const useWebRTC = (roomId, user, owner) => {
 						}
 					}, 300);
 				}
-			}
 			console.log("connections:", connections.current);
 			// Create an offer if required
 			if (createOffer) {
@@ -563,7 +519,6 @@ export const useWebRTC = (roomId, user, owner) => {
 				console.log("Audio stream tracks:", audioStream.current.getTracks());
 
 			// Add connection to peer connections track
-				if (remoteUser.id === "audioplayer") {
 				// Assign the audio stream to the audio player
 				if (audioStream.current) {
 					audioStream.current.getTracks().forEach((track) => {
@@ -604,51 +559,6 @@ export const useWebRTC = (roomId, user, owner) => {
 						}
 					}, 300);
 				}
-			} else {
-				if (localMediaStream.current) {
-					localMediaStream.current.getTracks().forEach((track) => {
-						const existingSenders = connections.current[peerId].getSenders();
-						const trackAlreadyAdded = existingSenders.some(
-							(sender) => sender.track === track,
-						);
-
-						if (!trackAlreadyAdded) {
-							connections.current[peerId].addTrack(
-								track,
-								localMediaStream.current,
-							);
-							console.log("Stream added 1 ", track);
-						}
-					});
-				} else {
-					let settled = false;
-					const interval = setInterval(() => {
-						if (localMediaStream.current) {
-							localMediaStream.current.getTracks().forEach((track) => {
-								const existingSenders =
-									connections.current[peerId].getSenders();
-								const trackAlreadyAdded = existingSenders.some(
-									(sender) => sender.track === track,
-								);
-
-								if (!trackAlreadyAdded) {
-									connections.current[peerId].addTrack(
-										track,
-										localMediaStream.current,
-									);
-
-									console.log("Stream added 2 ");
-								}
-							});
-							settled = true;
-						}
-
-						if (settled) {
-							clearInterval(interval);
-						}
-					}, 300);
-				}
-			}
 			console.log("connections:", connections.current);
 			// Create an offer if required
 			if (createOffer) {
