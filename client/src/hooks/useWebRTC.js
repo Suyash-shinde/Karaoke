@@ -440,16 +440,18 @@ export const useWebRTC = (roomId, user, owner) => {
 			// Create an offer if required
 			if (createOffer) {
 				console.log("Inside offer");
-				const offer = await connections.current[peerId].createOffer();
+				setTimeout(async () => {
+					const offer = await connections.current[peerId].createOffer();
 
-				// Set as local description
-				await connections.current[peerId].setLocalDescription(offer);
+					// Set as local description
+					await connections.current[peerId].setLocalDescription(offer);
 
-				// send offer to the server
-				socket.current.emit(ACTIONS.RELAY_SDP, {
-					peerId,
-					sessionDescription: offer,
-				});
+					// send offer to the server
+					socket.current.emit(ACTIONS.RELAY_SDP, {
+						peerId,
+						sessionDescription: offer,
+					});
+				}, 300);
 			}
 		};
 
