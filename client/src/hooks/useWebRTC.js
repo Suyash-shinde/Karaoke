@@ -305,6 +305,7 @@ export const useWebRTC = (roomId, user, owner) => {
 					if (remoteUser.id === "audioplayer") {
 						if (audioElements.current["audio-player"]) {
 							audioElements.current["audio-player"].srcObject = remoteStream;
+                            audioStream.current=remoteStream;
 							console.log("remoteStream 1", remoteStream);
 						} else {
 							let settled = false;
