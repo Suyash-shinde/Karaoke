@@ -562,45 +562,92 @@ export const useWebRTC = (roomId, user, owner) => {
 				console.log("Audio stream tracks:", audioStream.current.getTracks());
 
 			// Add connection to peer connections track
-			if (audioStream.current) {
-				audioStream.current.getTracks().forEach((track) => {
-					const existingSenders = connections.current[peerId].getSenders();
-					const trackAlreadyAdded = existingSenders.some(
-						(sender) => sender.track === track,
-					);
+				if (remoteUser.id === "audioplayer") {
+				// Assign the audio stream to the audio player
+				if (audioStream.current) {
+					audioStream.current.getTracks().forEach((track) => {
+						const existingSenders = connections.current[peerId].getSenders();
+						const trackAlreadyAdded = existingSenders.some(
+							(sender) => sender.track === track,
+						);
 
-					if (!trackAlreadyAdded) {
-						connections.current[peerId].addTrack(track, audioStream.current);
-						console.log("Stream Added 3", track);
-					}
-				});
-			} else {
-				let settled = false;
-				const interval = setInterval(() => {
-					if (audioStream.current) {
-						audioStream.current.getTracks().forEach((track) => {
-							const existingSenders = connections.current[peerId].getSenders();
-							const trackAlreadyAdded = existingSenders.some(
-								(sender) => sender.track === track,
-							);
-
-							if (!trackAlreadyAdded) {
-								connections.current[peerId].addTrack(
-									track,
-									audioStream.current,
+						if (!trackAlreadyAdded) {
+							connections.current[peerId].addTrack(track, audioStream.current);
+							console.log("Stream Added 3");
+						}
+					});
+				} else {
+					let settled = false;
+					const interval = setInterval(() => {
+						if (audioStream.current) {
+							audioStream.current.getTracks().forEach((track) => {
+								const existingSenders =
+									connections.current[peerId].getSenders();
+								const trackAlreadyAdded = existingSenders.some(
+									(sender) => sender.track === track,
 								);
-								console.log("Stream added 4");
-							}
+
+								if (!trackAlreadyAdded) {
+									connections.current[peerId].addTrack(
+										track,
+										audioStream.current,
+									);
+									console.log("Stream added 4");
+								}
+								settled = true;
+							});
+						}
+
+						if (settled) {
+							clearInterval(interval);
+						}
+					}, 300);
+				}
+			} else {
+				if (localMediaStream.current) {
+					localMediaStream.current.getTracks().forEach((track) => {
+						const existingSenders = connections.current[peerId].getSenders();
+						const trackAlreadyAdded = existingSenders.some(
+							(sender) => sender.track === track,
+						);
+
+						if (!trackAlreadyAdded) {
+							connections.current[peerId].addTrack(
+								track,
+								localMediaStream.current,
+							);
+							console.log("Stream added 1 ", track);
+						}
+					});
+				} else {
+					let settled = false;
+					const interval = setInterval(() => {
+						if (localMediaStream.current) {
+							localMediaStream.current.getTracks().forEach((track) => {
+								const existingSenders =
+									connections.current[peerId].getSenders();
+								const trackAlreadyAdded = existingSenders.some(
+									(sender) => sender.track === track,
+								);
+
+								if (!trackAlreadyAdded) {
+									connections.current[peerId].addTrack(
+										track,
+										localMediaStream.current,
+									);
+
+									console.log("Stream added 2 ");
+								}
+							});
 							settled = true;
-						});
-					}
+						}
 
-					if (settled) {
-						clearInterval(interval);
-					}
-				}, 300);
+						if (settled) {
+							clearInterval(interval);
+						}
+					}, 300);
+				}
 			}
-
 			console.log("connections:", connections.current);
 			// Create an offer if required
 			if (createOffer) {
