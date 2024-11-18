@@ -284,15 +284,170 @@ export const useWebRTC = (roomId, user, owner) => {
 					peerId,
 					icecandidate: event.candidate,
 				});
-				if (owner) {
-					setTimeout(() => {
-						console.log("Audio onice");
-						audioSocket.current.emit(ACTIONS.RELAY_ICE, {
-							peerId,
-							icecandidate: event.candidate,
-						});
-					}, 500);
+			};
+
+			// Handle on track event on this connection
+			connections.current[peerId].ontrack = ({ streams: [remoteStream] }) => {
+				// Check if remoteUser is defined before proceeding
+				if (!remoteUser || !remoteUser.id) {
+					console.error("remoteUser or remoteUser.id is undefined", remoteUser);
+					return; // Exit the function if remoteUser is not defined
 				}
+				console.log("Inside ontrack");
+				// Proceed to add the new client if remoteUser is defined
+				addNewClient({ ...remoteUser, muted: true }, () => {
+					console.log(
+						"render add new client remote",
+						9,
+						"for user:",
+						remoteUser.id,
+					);
+					console.log("audioElements: ", audioElements.current);
+					if (remoteUser.id === "audioplayer") {
+						if (audioElements.current["audio-player"]) {
+							audioElements.current["audio-player"].srcObject = remoteStream;
+							console.log("remoteStream 1", remoteStream);
+						} else {
+							let settled = false;
+							const interval = setInterval(() => {
+								if (audioElements.current["audio-player"]) {
+									audioElements.current["audio-player"].srcObject =
+										remoteStream;
+									console.log("remoteStream 2", remoteStream);
+									settled = true;
+								}
+
+								if (settled) {
+									clearInterval(interval);
+								}
+							}, 300);
+						}
+					} else {
+						if (audioElements.current[remoteUser.id]) {
+							audioElements.current[remoteUser.id].srcObject = remoteStream;
+
+							console.log("remoteStream 3", remoteStream);
+						} else {
+							let settled = false;
+							const interval = setInterval(() => {
+								if (audioElements.current[remoteUser.id]) {
+									audioElements.current[remoteUser.id].srcObject = remoteStream;
+									console.log("remoteStream 4", remoteStream);
+									settled = true;
+								}
+
+								if (settled) {
+									clearInterval(interval);
+								}
+							}, 300);
+						}
+					}
+				});
+			};
+
+			console.log(
+				"Local media stream tracks:",
+				localMediaStream.current.getTracks(),
+			);
+			// Add connection to peer connections track
+
+			if (localMediaStream.current) {
+				localMediaStream.current.getTracks().forEach((track) => {
+					const existingSenders = connections.current[peerId].getSenders();
+					const trackAlreadyAdded = existingSenders.some(
+						(sender) => sender.track === track,
+					);
+
+					if (!trackAlreadyAdded) {
+						connections.current[peerId].addTrack(
+							track,
+							localMediaStream.current,
+						);
+						console.log("Stream added 1 ", track);
+					}
+				});
+			} else {
+				let settled = false;
+				const interval = setInterval(() => {
+					if (localMediaStream.current) {
+						localMediaStream.current.getTracks().forEach((track) => {
+							const existingSenders = connections.current[peerId].getSenders();
+							const trackAlreadyAdded = existingSenders.some(
+								(sender) => sender.track === track,
+							);
+
+							if (!trackAlreadyAdded) {
+								connections.current[peerId].addTrack(
+									track,
+									localMediaStream.current,
+								);
+
+								console.log("Stream added 2 ");
+							}
+						});
+						settled = true;
+					}
+
+					if (settled) {
+						clearInterval(interval);
+					}
+				}, 300);
+			}
+			console.log("connections:", connections.current);
+			// Create an offer if required
+			if (createOffer) {
+				console.log("Inside offer");
+				const offer = await connections.current[peerId].createOffer();
+
+				// Set as local description
+				await connections.current[peerId].setLocalDescription(offer);
+
+				// send offer to the server
+				socket.current.emit(ACTIONS.RELAY_SDP, {
+					peerId,
+					sessionDescription: offer,
+				});
+			}
+		};
+
+		const handleNewPeerForPlayer = async ({
+			peerId,
+			createOffer,
+			user: remoteUser,
+		}) => {
+			// If already connected then prevent connecting again
+			console.log("Connections: ", connections.current);
+			console.log("render inside handle new peer", remoteUser);
+			console.log("peerID", peerId);
+			if (peerId in connections.current) {
+				return console.warn(
+					`You are already connected with ${peerId} (${user.name})`,
+				);
+			}
+
+			// Store it to connections
+			const iceServers = [
+				...freeice(),
+				{
+					urls: "turn:relay1.expressturn.com:3478",
+					username: "efRP4CLC6TNZZ0JZ74",
+					credential: "1N0fOLTsrfVihnyN",
+				},
+			];
+			connections.current[peerId] = new RTCPeerConnection({
+				iceServers,
+			});
+
+			console.log("RTCPeerConnection created:", connections.current[peerId]);
+			// Handle new ice candidate on this peer connection
+			connections.current[peerId].onicecandidate = (event) => {
+				console.log("onice");
+
+				console.log("Audio onice");
+				audioSocket.current.emit(ACTIONS.RELAY_ICE, {
+					peerId,
+					icecandidate: event.candidate,
+				});
 			};
 
 			// Handle on track event on this connection
@@ -361,36 +516,44 @@ export const useWebRTC = (roomId, user, owner) => {
 			if (audioStream.current)
 				console.log("Audio stream tracks:", audioStream.current.getTracks());
 
-			if (owner) {
-				if (audioStream.current) {
-					// Attach audio player stream
-					audioStream.current.getTracks().forEach((track) => {
-						connections.current[peerId].addTrack(track, audioStream.current);
-						console.log("Audio player track added:", track.kind);
-					});
-				}
+			// Add connection to peer connections track
+			if (audioStream.current) {
+				audioStream.current.getTracks().forEach((track) => {
+					const existingSenders = connections.current[peerId].getSenders();
+					const trackAlreadyAdded = existingSenders.some(
+						(sender) => sender.track === track,
+					);
 
-				if (localMediaStream.current) {
-					// Attach owner's microphone stream
-					localMediaStream.current.getTracks().forEach((track) => {
-						connections.current[peerId].addTrack(
-							track,
-							localMediaStream.current,
-						);
-						console.log("Owner's track added:", track.kind);
-					});
-				}
+					if (!trackAlreadyAdded) {
+						connections.current[peerId].addTrack(track, audioStream.current);
+						console.log("Stream Added 3", track);
+					}
+				});
 			} else {
-				if (localMediaStream.current) {
-					// Attach regular user's microphone stream
-					localMediaStream.current.getTracks().forEach((track) => {
-						connections.current[peerId].addTrack(
-							track,
-							localMediaStream.current,
-						);
-						console.log("Regular user's track added:", track.kind);
-					});
-				}
+				let settled = false;
+				const interval = setInterval(() => {
+					if (audioStream.current) {
+						audioStream.current.getTracks().forEach((track) => {
+							const existingSenders = connections.current[peerId].getSenders();
+							const trackAlreadyAdded = existingSenders.some(
+								(sender) => sender.track === track,
+							);
+
+							if (!trackAlreadyAdded) {
+								connections.current[peerId].addTrack(
+									track,
+									audioStream.current,
+								);
+								console.log("Stream added 4");
+							}
+							settled = true;
+						});
+					}
+
+					if (settled) {
+						clearInterval(interval);
+					}
+				}, 300);
 			}
 
 			console.log("connections:", connections.current);
@@ -403,18 +566,11 @@ export const useWebRTC = (roomId, user, owner) => {
 				await connections.current[peerId].setLocalDescription(offer);
 
 				// send offer to the server
-				socket.current.emit(ACTIONS.RELAY_SDP, {
+
+				audioSocket.current.emit(ACTIONS.RELAY_SDP, {
 					peerId,
 					sessionDescription: offer,
 				});
-				if (owner) {
-					setTimeout(() => {
-						audioSocket.current.emit(ACTIONS.RELAY_SDP, {
-							peerId,
-							sessionDescription: offer,
-						});
-					}, 500);
-				}
 			}
 		};
 
@@ -422,7 +578,7 @@ export const useWebRTC = (roomId, user, owner) => {
 		socket.current.on(ACTIONS.ADD_PEER, handleNewPeer);
 		if (owner) {
 			setTimeout(() => {
-				audioSocket.current.on(ACTIONS.ADD_PEER, handleNewPeer);
+				audioSocket.current.on(ACTIONS.ADD_PEER, handleNewPeerForPlayer);
 			}, 500);
 		}
 
