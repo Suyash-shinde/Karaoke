@@ -155,9 +155,8 @@ export const useWebRTC = (roomId, user, owner) => {
 				localMediaStream.current = await navigator.mediaDevices.getUserMedia({
 					audio: true,
 				});
-				if (owner) {
 					createAudioStream(); // Function to create the audio stream for the owner.
-				}
+				
 			} catch (error) {
 				console.error("Error capturing audio stream:", error);
 				return;
