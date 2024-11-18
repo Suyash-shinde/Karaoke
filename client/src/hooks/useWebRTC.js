@@ -319,8 +319,8 @@ export const useWebRTC = (roomId, user, owner) => {
                         } else {
                             let settled = false;
                             const interval = setInterval(() => {
-                                if (audioElements.current[remoteUser.id]) {
-                                    audioElements.current[remoteUser.id].srcObject = remoteStream;
+                                if (audioElements.current["audio-player"]) {
+                                    audioElements.current["audio-player"].srcObject = remoteStream;
                                     console.log("remoteStream 2", remoteStream);
                                     settled = true;
                                 }
@@ -371,7 +371,7 @@ export const useWebRTC = (roomId, user, owner) => {
 
                         if (!trackAlreadyAdded) {
                             connections.current[peerId].addTrack(track, audioStream.current);
-                            console.log("Stream Added 3");
+                            console.log("Stream Added 3",track);
                         }
                     });
                 } else {
@@ -415,7 +415,7 @@ export const useWebRTC = (roomId, user, owner) => {
                             track,
                             localMediaStream.current,
                         );
-                        console.log("Stream added 1 ");
+                        console.log("Stream added 1 ", track);
                     }
                 });
             } else {
