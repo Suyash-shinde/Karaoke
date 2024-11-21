@@ -153,14 +153,7 @@ export const RoomPage = React.memo(() => {
                             >
                                 Matsuri - Fuji Kaze
                             </div>
-                            <div
-                                className={styles.element}
-                                onClick={() => {
-                                    addSong('https://res.cloudinary.com/dmcsfqgch/video/upload/v1731863847/songs/hr3kyyskjkmuz6yutbfi.mp3');
-                                }}
-                            >
-                                Test
-                            </div>
+                            
                         </div>
                     </div>
                 </div>
