@@ -25,9 +25,9 @@ https://karaoke-frontend.onrender.com/
 
 **Server:** Node, Express
 
-**DataBase** MongoDb
+**DataBase:** MongoDb
 
-**Voice Call** WebRTC, WebSockets
+**Voice Call:** WebRTC, WebSockets
 
 
 ## Screenshots
