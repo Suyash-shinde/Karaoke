@@ -21,7 +21,7 @@ https://karaoke-frontend.onrender.com/
 
 ## Tech Stack 🛠️
 
-**Client:** React, Redux, TailwindCSS
+**Client:** React, Redux
 
 **Server:** Node, Express
 
